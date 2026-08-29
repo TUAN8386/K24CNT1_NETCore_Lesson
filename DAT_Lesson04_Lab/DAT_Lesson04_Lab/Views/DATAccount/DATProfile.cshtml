@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Hồ sơ cá nhân";
+    var account = ViewBag.DATAccount as DAT_Lesson04_Lab.Models.DATAccount;
+}
+
+<h2 class="my-3 text-success">Thông tin hồ sơ chi tiết</h2>
+
+@if (account != null)
+{
+    <div class="row border p-4 rounded shadow-sm bg-light">
+        <div class="col-md-4 text-center">
+            <img src="@account.Avatar" class="img-fluid rounded border mb-3 shadow-sm" style="max-height: 280px; width: 100%; object-fit: cover;" alt="@account.Name" />
+        </div>
+        <div class="col-md-8">
+            <h3>Họ và tên: @account.Name</h3>
+            <hr />
+            <p><strong>Email:</strong> @account.Email</p>
+            <p><strong>Số điện thoại:</strong> @account.Phone</p>
+            <p><strong>Địa chỉ:</strong> @account.Address</p>
+            <p><strong>Mô tả:</strong> @account.Bio</p>
+            <p>
+                <strong>Giới tính:</strong>
+                @if (account.Gender == 1)
+                {
+                    <span class="badge bg-primary fs-6">Nam</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger fs-6">Nữ</span>
+                }
+            </p>
+            <p><strong>Ngày sinh:</strong> @account.Birthday.ToString("dd/MM/yyyy")</p>
+
+            <a asp-controller="DATAccount" asp-action="DATIndex" class="btn btn-secondary mt-3">
+                &laquo; Quay lại danh sách
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">Không tìm thấy thông tin tài khoản yêu cầu!</div>
+}
