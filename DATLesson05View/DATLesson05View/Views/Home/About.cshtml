@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Thông tin sinh viên";
+
+    // Khai báo các biến thông tin cá nhân
+    var hoTen = "DINH ANH TUAN";
+    var maSinhVien = "2410900083"; 
+    var lop = "K24CNT1";
+    var email = "DAT083@gmail.com";
+}
+
+<div class="alert alert-info mt-3">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    <p><strong>Họ và tên:</strong> @hoTen</p>
+    <p><strong>Mã sinh viên:</strong> @maSinhVien</p>
+    <p><strong>Lớp:</strong> @lop</p>
+    <p><strong>Email:</strong> @email</p>
+</div>

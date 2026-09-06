@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Cú pháp Razor Code";
+    var total = 7500;
+    var myMessage = "Tài khoản của DAT";
+    string[] images = { "icon5.jpg", "icon4.jpg","icon1.png",  };
+}
+
+<h2>1. Khai báo biến & Khối lệnh</h2>
+<p>Thông điệp: @myMessage</p>
+<p>Tổng tiền: @total</p>
+
+<h2>2. Cấu trúc điều kiện (if-else)</h2>
+@if (total > 5000)
+{
+    <div class="text-success">DAT là người giàu có!</div>
+}
+else
+{
+    <div class="text-warning">DAT là người bình thường.</div>
+}
+
+<h2>3. Vòng lặp (for - Số chẵn/lẻ)</h2>
+@for (int i = 0; i < 10; i++)
+{
+    if (i % 2 == 0)
+    {
+        <span class="btn btn-danger m-1">@i </span>
+    }
+    else
+    {
+        <span class="btn btn-success m-1">@i </span>
+    }
+}
+
+<h2>4. Vòng lặp foreach (Danh sách Icon)</h2>
+<div class="d-flex flex-wrap gap-2">
+    @foreach (var item in images)
+    {
+        <img src="~/icon/@item" alt="icon" width="80" height="80" class="img-thumbnail" />
+    }
+</div>
