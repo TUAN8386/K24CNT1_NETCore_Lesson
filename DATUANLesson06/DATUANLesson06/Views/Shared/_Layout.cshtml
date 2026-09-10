@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Lesson06</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DATUANLesson06.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+    <!-- NHÚNG HEADER PARTIAL VIEW (DATUAN) -->
+    <partial name="_DATUANHeaderPartialView" />
+
+    <div class="container mt-3">
+        <div class="row">
+
+            <!-- CỘT BÊN TRÁI (3/12): HIỂN THỊ VIEW COMPONENT DATUAN_Category -->
+            <div class="col-md-3">
+                <h6 class="text-uppercase fw-bold text-primary">Tất cả danh mục:</h6>
+                @* Gọi View Component không truyền tham số *@
+                @await Component.InvokeAsync("DATUAN_Category")
+
+                <hr class="my-3" />
+
+                <h6 class="text-uppercase fw-bold text-success">Danh mục lọc (ID > 2):</h6>
+                @* Gọi View Component truyền tham số n = 2 *@
+                @await Component.InvokeAsync("DATUAN_Category", new { n = 2 })
+            </div>
+
+            <!-- CỘT BÊN PHẢI (9/12): HIỂN THỊ NỘI DUNG CHÍNH -->
+            <div class="col-md-9">
+                <main role="main" class="pb-3 ms-2">
+                    @RenderBody()
+                </main>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- NHÚNG FOOTER PARTIAL VIEW (DATUAN) -->
+    <partial name="_DATUANFooterPartialView" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
