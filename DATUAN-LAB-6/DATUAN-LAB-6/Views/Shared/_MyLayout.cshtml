@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DATUAN-LAB-6</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <header class="bg-danger text-white p-3 mb-4">
+        <div class="container">
+            <h1 class="h3">CỬA HÀNG THIẾT BỊ GIA DỤNG - DATUAN LAB 6</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <!-- Cột trái: Partial View Danh mục -->
+            <div class="col-md-3">
+                <partial name="_LeftCategory" />
+            </div>
+
+            <!-- Cột phải: Nội dung chính -->
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center p-3 mt-4">
+        <p class="mb-0">&copy; 2026 - DATUAN-LAB-6 - Devmaster Academy</p>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

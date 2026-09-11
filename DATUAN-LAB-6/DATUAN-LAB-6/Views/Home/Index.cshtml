@@ -1,0 +1,24 @@
+﻿@model IEnumerable<DATUAN_LAB_6.Models.Product>
+
+@{
+    ViewData["Title"] = "Trang chủ - Sản phẩm mới nhất";
+}
+
+<!-- Load từ Action Index của HomeController -->
+<h3 class="text-primary border-bottom pb-2 mb-3">SẢN PHẨM MỚI NHẤT</h3>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center shadow-sm">
+                <img src="@item.Image" class="card-img-top p-2" alt="@item.Name" style="height: 160px; object-fit: contain;">
+                <div class="card-body">
+                    <h6 class="card-title text-truncate">@item.Name</h6>
+                    <p class="card-text text-danger fw-bold">@item.Price.ToString("N0") VNĐ</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
