@@ -1,0 +1,47 @@
+﻿@model DAT_Lesson07_Model.DataModel.DAT_Member
+
+@{
+    ViewData["Title"] = "Thêm mới thành viên";
+}
+
+<div class="card p-3 shadow-sm">
+    <h2 class="text-success">THÊM MỚI THÀNH VIÊN</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="CreateMember" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DAT_Username" class="control-label">Tên tài khoản</label>
+                    <input asp-for="DAT_Username" class="form-control" />
+                    <span asp-validation-for="DAT_Username" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DAT_Password" class="control-label">Mật khẩu</label>
+                    <input asp-for="DAT_Password" type="password" class="form-control" />
+                    <span asp-validation-for="DAT_Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DAT_FullName" class="control-label">Họ và tên</label>
+                    <input asp-for="DAT_FullName" class="form-control" />
+                    <span asp-validation-for="DAT_FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DAT_Email" class="control-label">Địa chỉ Email</label>
+                    <input asp-for="DAT_Email" type="email" class="form-control" />
+                    <span asp-validation-for="DAT_Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group my-3">
+                    <input type="submit" value="Ghi lại" class="btn btn-success" />
+                    <a asp-action="Index" class="btn btn-secondary ms-2">Quay lại danh sách</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

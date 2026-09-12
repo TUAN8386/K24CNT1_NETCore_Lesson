@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DAT_Lesson07_Model.DataModel.DAT_Member>
+
+@{
+    ViewData["Title"] = "Danh sách thành viên";
+}
+
+<div class="card p-3 shadow-sm">
+    <h1 class="text-primary">DANH SÁCH THÀNH VIÊN</h1>
+
+    <p>
+        <a asp-action="CreateMember" class="btn btn-primary my-2">Thêm mới thành viên</a>
+    </p>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>STT</th>
+                <th>Username</th>
+                <th>Họ và tên</th>
+                <th>Email</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int stt = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@(stt++)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DAT_Username)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DAT_FullName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DAT_Email)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.DAT_MemberID" class="btn btn-sm btn-warning">Sửa</a>
+                        <a asp-action="Details" asp-route-id="@item.DAT_MemberID" class="btn btn-sm btn-info">Chi tiết</a>
+                        <a asp-action="Delete" asp-route-id="@item.DAT_MemberID" class="btn btn-sm btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
