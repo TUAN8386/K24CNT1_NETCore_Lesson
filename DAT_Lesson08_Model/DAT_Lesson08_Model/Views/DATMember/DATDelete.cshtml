@@ -1,0 +1,31 @@
+﻿@model DAT_Lesson08_Model.Models.DATMember
+
+@{
+    ViewData["Title"] = "Xác nhận xóa";
+}
+
+<div class="card p-3 my-3">
+    <div class="card-header bg-danger text-white">
+        <h3>Xác nhận xóa thành viên</h3>
+    </div>
+    <div class="card-body">
+        <h5>Bạn có chắc chắn muốn xóa thành viên này không?</h5>
+        <dl class="row mt-3">
+            <dt class="col-sm-3">Mã thành viên</dt>
+            <dd class="col-sm-9">@Model.DATMemberID</dd>
+
+            <dt class="col-sm-3">Họ và tên</dt>
+            <dd class="col-sm-9">@Model.DATFullName</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.DATEmail</dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <form asp-action="DATDeleted">
+            <input type="hidden" name="id" value="@Model.DATMemberID" />
+            <input type="submit" value="Xác nhận Xóa" class="btn btn-danger" /> |
+            <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+        </form>
+    </div>
+</div>

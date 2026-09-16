@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DAT_Lesson08_Model.Models.DATMember>
+
+@{
+    ViewData["Title"] = "Danh sách thành viên";
+}
+
+<div class="card p-3 my-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Danh sách thành viên</h3>
+        <a asp-action="DATCreate" class="btn btn-primary">Thêm mới thành viên</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.DATMemberID)</th>
+                    <th>@Html.DisplayNameFor(model => model.DATUsername)</th>
+                    <th>@Html.DisplayNameFor(model => model.DATFullName)</th>
+                    <th>@Html.DisplayNameFor(model => model.DATEmail)</th>
+                    <th class="text-center">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.DATMemberID</td>
+                        <td>@item.DATUsername</td>
+                        <td>@item.DATFullName</td>
+                        <td>@item.DATEmail</td>
+                        <td class="text-center">
+                            <a asp-action="DATEdit" asp-route-id="@item.DATMemberID" class="btn btn-sm btn-warning">Sửa</a> |
+                            <a asp-action="DATDetail" asp-route-id="@item.DATMemberID" class="btn btn-sm btn-info text-white">Xem</a> |
+                            <a asp-action="DATDelete" asp-route-id="@item.DATMemberID" class="btn btn-sm btn-danger">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
