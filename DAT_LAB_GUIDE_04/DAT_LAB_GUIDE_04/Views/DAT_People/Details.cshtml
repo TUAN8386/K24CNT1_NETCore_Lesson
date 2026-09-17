@@ -1,0 +1,47 @@
+﻿@model DAT_LAB_GUIDE_04.Models.DAT_People
+
+@{
+    ViewData["Title"] = "Chi tiết nhân sự";
+}
+
+<h1>Chi tiết thông tin</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Id)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Phone)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Phone)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Address)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Address)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Avatar)</dt>
+        <dd class="col-sm-9">
+            <img src="~/@Model.Avatar" alt="@Model.Name" class="img-thumbnail" style="max-width: 200px;" />
+        </dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Birthday)</dt>
+        <dd class="col-sm-9">@Model.Birthday.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Gender)</dt>
+        <dd class="col-sm-9">
+            @(Model.Gender == 0 ? "Cty" : (Model.Gender == 1 ? "Nam" : "Nữ"))
+        </dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Bio)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Bio)</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Chỉnh sửa</a> |
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>

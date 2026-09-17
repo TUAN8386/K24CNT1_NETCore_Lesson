@@ -1,0 +1,61 @@
+﻿@model IEnumerable<DAT_LAB_GUIDE_04.Models.DAT_People>
+
+@{
+    ViewData["Title"] = "Danh sách nhân sự";
+}
+
+<h1>Danh sách nhân sự</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm mới</a>
+</p>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.Phone)</th>
+            <th>@Html.DisplayNameFor(model => model.Avatar)</th>
+            <th>@Html.DisplayNameFor(model => model.Gender)</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                <!-- Hiển thị ảnh đại diện dạng Thumbnail -->
+                <td>
+                    <img src="~/@item.Avatar" alt="@item.Name" style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;" />
+                </td>
+                <!-- Đổi giá trị số 0, 1, 2 thành chữ -->
+                <td>
+                    @if (item.Gender == 0)
+                    {
+                        <span class="badge bg-secondary">Cty</span>
+                    }
+                    else if (item.Gender == 1)
+                    {
+
+                        <span class="badge bg-primary">Nam</span>
+                    }
+                    else
+                    {
+
+                        <span class="badge bg-danger">Nữ</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Chi tiết</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

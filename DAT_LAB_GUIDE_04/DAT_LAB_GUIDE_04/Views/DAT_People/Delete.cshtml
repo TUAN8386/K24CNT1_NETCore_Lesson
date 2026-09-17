@@ -1,0 +1,29 @@
+﻿@model DAT_LAB_GUIDE_04.Models.DAT_People
+
+@{
+    ViewData["Title"] = "Xóa nhân sự";
+}
+
+<h1 class="text-danger">Xác nhận xóa nhân sự</h1>
+<h3>Bạn có chắc chắn muốn xóa bản ghi này không?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Avatar)</dt>
+        <dd class="col-sm-9">
+            <img src="~/@Model.Avatar" style="width: 80px;" />
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Đồng ý xóa" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+    </form>
+</div>
