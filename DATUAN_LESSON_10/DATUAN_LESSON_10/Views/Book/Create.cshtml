@@ -1,0 +1,67 @@
+﻿@model DATUAN_LESSON_10.Models.Book
+
+@{
+    ViewData["Title"] = "Thêm mới Sách";
+}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <h2 class="text-success mb-3">Thêm mới Sách</h2>
+    <hr />
+
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label fw-bold">Tên Sách</label>
+            <input asp-for="Title" class="form-control" placeholder="Nhập tên sách..." />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Author" class="form-label">Tác giả</label>
+            <input asp-for="Author" class="form-control" placeholder="Nhập tên tác giả..." />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="Price" class="form-label">Giá bán (VNĐ)</label>
+                <input asp-for="Price" type="number" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="PublishedYear" class="form-label">Năm xuất bản</label>
+                <input asp-for="PublishedYear" type="number" class="form-control" />
+                <span asp-validation-for="PublishedYear" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="CategoryId" class="form-label">Thể loại</label>
+            <select asp-for="CategoryId" class="form-select form-control" asp-items="ViewBag.CategoryId">
+                <option value="">-- Chọn thể loại --</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PublisherId" class="form-label">Nhà xuất bản</label>
+            <select asp-for="PublisherId" class="form-select form-control" asp-items="ViewBag.PublisherId">
+                <option value="">-- Chọn nhà xuất bản --</option>
+            </select>
+            <span asp-validation-for="PublisherId" class="text-danger"></span>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success me-2">Lưu lại</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
