@@ -1,0 +1,35 @@
+@model List<BienLaiPhat>
+@{
+    ViewData["Title"] = "Biên lai phạt";
+    ViewData["Crumb"] = "Mượn – trả / Biên lai phạt";
+    bool? loc = ViewBag.DaThanhToan;
+}
+<div class="card border-0 shadow-sm"><div class="card-body">
+    <div class="btn-group mb-3">
+        <a asp-action="Index" class="btn btn-outline-primary @(loc == null ? "active" : "")">Tất cả</a>
+        <a asp-action="Index" asp-route-daThanhToan="false" class="btn btn-outline-primary @(loc == false ? "active" : "")">Chưa thanh toán</a>
+        <a asp-action="Index" asp-route-daThanhToan="true" class="btn btn-outline-primary @(loc == true ? "active" : "")">Đã thanh toán</a>
+    </div>
+    <table class="table align-middle">
+        <thead class="table-light"><tr><th>Mã biên lai</th><th>Phiếu mượn</th><th>Độc giả</th><th>Lý do</th><th class="text-end">Số tiền</th><th>Ngày lập</th><th>Trạng thái</th><th></th></tr></thead>
+        @foreach (var b in Model)
+        {
+            <tr>
+                <td class="fw-semibold">@b.MaHienThi</td>
+                <td>@("PM" + b.MaPhieuMuon.ToString("D6"))</td>
+                <td>@b.DocGia?.HoTen</td><td class="small">@b.LyDo</td>
+                <td class="text-end fw-bold">@b.SoTien.ToString("N0")đ</td>
+                <td>@b.NgayLap.ToString("dd/MM/yyyy")</td>
+                <td>@if (b.DaThanhToan) { <span class="badge text-bg-success">Đã thanh toán</span> } else { <span class="badge text-bg-warning">Chưa thanh toán</span> }</td>
+                <td class="d-flex gap-1">
+                    <a asp-action="In" asp-route-id="@b.MaBienLai" class="btn btn-outline-secondary btn-sm">In</a>
+                    @if (!b.DaThanhToan)
+                    {
+                        <form asp-action="ThanhToan" asp-route-id="@b.MaBienLai" method="post"><button class="btn btn-success btn-sm">Thu tiền</button></form>
+                    }
+                </td>
+            </tr>
+        }
+        @if (!Model.Any()) { <tr><td colspan="8" class="text-center text-muted">Không có biên lai.</td></tr> }
+    </table>
+</div></div>

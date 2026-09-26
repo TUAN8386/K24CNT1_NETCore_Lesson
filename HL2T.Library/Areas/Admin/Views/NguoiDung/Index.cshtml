@@ -1,0 +1,39 @@
+@model List<NguoiDung>
+@{
+    ViewData["Title"] = "Quản lý người dùng";
+    ViewData["Crumb"] = "Hệ thống / Người dùng";
+    var tk = (Dictionary<string, int>)ViewBag.ThongKe;
+    var vaiTros = (List<VaiTro>)ViewBag.VaiTros;
+    int? ma = ViewBag.MaVaiTro;
+    int Dem(string k) => tk.TryGetValue(k, out var v) ? v : 0;
+}
+<div class="row g-3 mb-3">
+    <div class="col-md-3"><div class="hl-kpi">Tổng tài khoản<b>@tk.Values.Sum()</b></div></div>
+    <div class="col-md-3"><div class="hl-kpi danger">Quản trị viên<b>@Dem(VaiTroNames.Admin)</b></div></div>
+    <div class="col-md-3"><div class="hl-kpi warn">Thủ thư<b>@Dem(VaiTroNames.ThuThu)</b></div></div>
+    <div class="col-md-3"><div class="hl-kpi ok">Độc giả<b>@Dem(VaiTroNames.DocGia)</b></div></div>
+</div>
+<div class="card border-0 shadow-sm"><div class="card-body">
+    <form method="get" class="row g-2 mb-3">
+        <div class="col-md-4"><input name="tuKhoa" value="@ViewBag.TuKhoa" class="form-control" placeholder="Tìm theo tên, tên đăng nhập, email..." /></div>
+        <div class="col-md-3"><select name="maVaiTro" class="form-select"><option value="">Vai trò: Tất cả</option>
+            @foreach (var v in vaiTros) { <option value="@v.MaVaiTro" selected="@(v.MaVaiTro == ma)">@VaiTroNames.HienThi(v.TenVaiTro)</option> }</select></div>
+        <div class="col-md-2"><button class="btn btn-outline-primary w-100">Lọc</button></div>
+        <div class="col-md-3 text-end"><a asp-action="Create" class="btn btn-primary">+ Thêm tài khoản</a></div>
+    </form>
+    <table class="table align-middle">
+        <thead class="table-light"><tr><th>Mã</th><th>Tên đăng nhập</th><th>Họ tên</th><th>Email</th><th>Vai trò</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+        @foreach (var n in Model)
+        {
+            <tr>
+                <td>@n.MaNguoiDung</td><td class="fw-semibold">@n.TenDangNhap</td><td>@n.HoTen</td><td>@n.Email</td>
+                <td><span class="badge text-bg-light border">@VaiTroNames.HienThi(n.VaiTro?.TenVaiTro)</span></td>
+                <td>@if (n.TrangThai) { <span class="badge text-bg-success">Hoạt động</span> } else { <span class="badge text-bg-danger">Đã khóa</span> }</td>
+                <td class="d-flex gap-1">
+                    <a asp-action="Edit" asp-route-id="@n.MaNguoiDung" class="btn btn-outline-primary btn-sm">Sửa</a>
+                    <form asp-action="KhoaMo" asp-route-id="@n.MaNguoiDung" method="post"><button class="btn btn-sm @(n.TrangThai ? "btn-danger" : "btn-success")">@(n.TrangThai ? "Khóa" : "Mở khóa")</button></form>
+                </td>
+            </tr>
+        }
+    </table>
+</div></div>

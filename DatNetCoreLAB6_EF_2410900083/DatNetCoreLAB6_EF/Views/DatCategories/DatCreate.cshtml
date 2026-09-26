@@ -1,0 +1,29 @@
+@model DatCategory
+@{
+    ViewData["Title"] = "Thêm mới danh mục";
+}
+<h2>Thêm mới danh mục</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DatCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Status" class="form-label"></label>
+                <partial name="_DatStatusSelect" model="Model.Status" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <input type="submit" value="Create" class="btn btn-sm btn-success" />
+            <a class="btn btn-sm btn-danger" asp-action="DatIndex">Back to List</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

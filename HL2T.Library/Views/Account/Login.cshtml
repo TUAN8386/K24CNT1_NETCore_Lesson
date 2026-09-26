@@ -1,0 +1,42 @@
+@model DangNhapVM
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="card shadow-sm overflow-hidden border-0">
+            <div class="row g-0">
+                <div class="col-md-6 hl-hero d-flex flex-column justify-content-center p-5 rounded-0">
+                    <div class="d-flex align-items-center gap-2 fs-4 fw-bold"><span class="hl-logo">HL2T</span> Thư viện HL2T</div>
+                    <h2 class="fw-bold mt-4">Hệ thống Quản lý Sách Thư viện</h2>
+                    <p class="opacity-75">Tra cứu sách, đăng ký mượn trực tuyến và quản lý hoạt động thư viện trên một nền tảng duy nhất.</p>
+                </div>
+                <div class="col-md-6 p-5 bg-white">
+                    <h3 class="fw-bold mb-1">Đăng nhập</h3>
+                    <p class="text-muted">Vui lòng nhập thông tin tài khoản</p>
+                    <form asp-action="Login" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2"></div>
+                        <input type="hidden" asp-for="ReturnUrl" />
+                        <div class="mb-3">
+                            <label asp-for="TenDangNhap" class="form-label fw-semibold"></label>
+                            <input asp-for="TenDangNhap" class="form-control" autofocus />
+                            <span asp-validation-for="TenDangNhap" class="text-danger small"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="MatKhau" class="form-label fw-semibold"></label>
+                            <input asp-for="MatKhau" class="form-control" />
+                            <span asp-validation-for="MatKhau" class="text-danger small"></span>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input asp-for="GhiNho" class="form-check-input" />
+                            <label asp-for="GhiNho" class="form-check-label"></label>
+                        </div>
+                        <button class="btn btn-primary w-100 py-2 fw-semibold">Đăng nhập</button>
+                        <p class="text-muted small text-center mt-3 mb-0">Chưa có tài khoản? Liên hệ quầy thủ thư để được cấp thẻ độc giả.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -1,0 +1,42 @@
+@model IEnumerable<DatBanner>
+@{
+    ViewData["Title"] = "Danh sách banner";
+}
+<h2>Danh sách banner</h2>
+<p>
+    <a class="btn btn-sm btn-success" asp-action="DatCreate">Thêm mới banner</a>
+</p>
+<table class="table table-hover bg-white align-middle">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Image)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+            <th>@Html.DisplayNameFor(model => model.Status)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var datItem in Model)
+        {
+            <tr>
+                <td>@datItem.Name</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(datItem.Image))
+                    {
+                        <img src="/images/banners/@datItem.Image" class="dat-thumb" style="width:120px" alt="@datItem.Name" />
+                    }
+                </td>
+                <td class="small">@datItem.Description</td>
+                <td>@Html.DisplayFor(modelItem => datItem.CreatedDate)</td>
+                <td><partial name="_DatStatusBadge" model="datItem.Status" /></td>
+                <td class="text-nowrap">
+                    <a class="btn btn-sm btn-primary" asp-action="DatEdit" asp-route-id="@datItem.Id">Edit</a>
+                    <a class="btn btn-sm btn-success" asp-action="DatDetails" asp-route-id="@datItem.Id">Details</a>
+                    <a class="btn btn-sm btn-danger" asp-action="DatDelete" asp-route-id="@datItem.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

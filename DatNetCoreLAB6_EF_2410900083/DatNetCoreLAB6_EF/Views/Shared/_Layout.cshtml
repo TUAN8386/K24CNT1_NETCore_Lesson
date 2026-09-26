@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DatNetCoreLAB6_EF</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="DatHome" asp-action="DatIndex">DatNetCoreLAB6_EF</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#datNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="datNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link" asp-controller="DatHome" asp-action="DatIndex">Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="DatHome" asp-action="DatProduct">Sản phẩm</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Quản lý bán hàng</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="DatCategories" asp-action="DatIndex">Danh mục</a></li>
+                                <li><a class="dropdown-item" asp-controller="DatProducts" asp-action="DatIndex">Sản phẩm</a></li>
+                                <li><a class="dropdown-item" asp-controller="DatBanners" asp-action="DatIndex">Banner</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Quản lý sinh viên</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="DatStdClasses" asp-action="DatIndex">Lớp học</a></li>
+                                <li><a class="dropdown-item" asp-controller="DatStudents" asp-action="DatIndex">Sinh viên</a></li>
+                                <li><a class="dropdown-item" asp-controller="DatSubjects" asp-action="DatIndex">Môn học</a></li>
+                                <li><a class="dropdown-item" asp-controller="DatMarks" asp-action="DatIndex">Điểm</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <span class="navbar-text small">Đinh Anh Tuấn - 2410900083</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @if (TempData["DatSuccess"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    @TempData["DatSuccess"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            @if (TempData["DatError"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show">
+                    @TempData["DatError"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top dat-footer text-muted bg-white">
+        <div class="container">
+            &copy; 2026 - LabGuide06 Entity Framework Core - Đinh Anh Tuấn (DAT)
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

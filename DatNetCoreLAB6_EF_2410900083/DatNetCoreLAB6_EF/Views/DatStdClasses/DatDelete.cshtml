@@ -1,0 +1,26 @@
+@model DatStdClass
+@{
+    ViewData["Title"] = "Xóa lớp";
+}
+<h2>Xóa lớp</h2>
+@if (Model.Students.Any())
+{
+    <div class="alert alert-warning">Lớp đang có @Model.Students.Count sinh viên, không thể xóa.</div>
+}
+else
+{
+    <h4 class="text-danger">Bạn có chắc muốn xóa lớp này?</h4>
+}
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ClassName)</dt>
+    <dd class="col-sm-10">@Model.ClassName</dd>
+</dl>
+<form asp-action="DatDelete">
+    <input type="hidden" asp-for="Id" />
+    @if (!Model.Students.Any())
+    {
+        <input type="submit" value="Delete" class="btn btn-sm btn-danger" />
+    }
+    <a class="btn btn-sm btn-secondary" asp-action="DatIndex">Back to List</a>
+</form>

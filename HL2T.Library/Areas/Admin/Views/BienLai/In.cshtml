@@ -1,0 +1,29 @@
+@model BienLaiPhat
+@{
+    ViewData["Title"] = "Biên lai " + Model.MaHienThi;
+    ViewData["Crumb"] = "Mượn – trả / Biên lai phạt";
+}
+<div class="card border-0 shadow-sm mx-auto hl-receipt" style="max-width:640px"><div class="card-body p-4">
+    <div class="text-center mb-3">
+        <div class="fw-bold">THƯ VIỆN HL2T</div>
+        <h4 class="fw-bold mt-2">BIÊN LAI THU TIỀN PHẠT</h4>
+        <div class="text-muted">Số: @Model.MaHienThi · Ngày @Model.NgayLap.ToString("dd/MM/yyyy HH:mm")</div>
+    </div>
+    <table class="table table-sm">
+        <tr><td class="text-muted" style="width:180px">Độc giả</td><td><b>@Model.DocGia?.HoTen</b> (@Model.DocGia?.TenDangNhap)</td></tr>
+        <tr><td class="text-muted">Phiếu mượn</td><td>@Model.PhieuMuon?.MaHienThi</td></tr>
+        <tr><td class="text-muted">Hạn trả</td><td>@Model.PhieuMuon?.NgayHenTra?.ToString("dd/MM/yyyy")</td></tr>
+        <tr><td class="text-muted">Lý do</td><td>@Model.LyDo</td></tr>
+        <tr><td class="text-muted">Số tiền</td><td class="fs-5 fw-bold text-danger">@Model.SoTien.ToString("N0") đồng</td></tr>
+        <tr><td class="text-muted">Trạng thái</td><td>@(Model.DaThanhToan ? "Đã thanh toán" : "Chưa thanh toán")</td></tr>
+    </table>
+    <div class="row text-center mt-4"><div class="col">Người nộp tiền<br /><br /><br /></div><div class="col">Thủ thư<br /><br /><br /></div></div>
+    <div class="d-flex gap-2 justify-content-center d-print-none">
+        <button onclick="window.print()" class="btn btn-outline-secondary"><i class="bi bi-printer"></i> In biên lai</button>
+        @if (!Model.DaThanhToan)
+        {
+            <form asp-action="ThanhToan" asp-route-id="@Model.MaBienLai" asp-route-returnTo="in" method="post"><button class="btn btn-success">Xác nhận đã thu tiền</button></form>
+        }
+        <a asp-action="Index" class="btn btn-link">Danh sách biên lai</a>
+    </div>
+</div></div>

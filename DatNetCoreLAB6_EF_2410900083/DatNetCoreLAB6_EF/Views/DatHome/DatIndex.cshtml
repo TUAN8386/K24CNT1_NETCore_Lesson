@@ -1,0 +1,51 @@
+@model DatHomeViewModel
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+@* Bài 4: Hiển thị banner trên trang chủ *@
+@if (Model.DatBanners.Any())
+{
+    <div id="datCarousel" class="carousel slide dat-carousel mb-4 rounded overflow-hidden" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            @for (var datI = 0; datI < Model.DatBanners.Count; datI++)
+            {
+                <button type="button" data-bs-target="#datCarousel" data-bs-slide-to="@datI" class="@(datI == 0 ? "active" : "")"></button>
+            }
+        </div>
+        <div class="carousel-inner">
+            @for (var datI = 0; datI < Model.DatBanners.Count; datI++)
+            {
+                var datBanner = Model.DatBanners[datI];
+                <div class="carousel-item @(datI == 0 ? "active" : "")">
+                    <img src="/images/banners/@datBanner.Image" class="d-block w-100" alt="@datBanner.Name" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>@datBanner.Name</h5>
+                        <p>@datBanner.Description</p>
+                    </div>
+                </div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#datCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#datCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">Chưa có banner. <a asp-controller="DatBanners" asp-action="DatCreate">Thêm banner</a></div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">Sản phẩm mới</h3>
+    <a asp-action="DatProduct">Xem tất cả &raquo;</a>
+</div>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+    @foreach (var datItem in Model.DatProducts)
+    {
+        <partial name="_DatProductCard" model="datItem" />
+    }
+</div>

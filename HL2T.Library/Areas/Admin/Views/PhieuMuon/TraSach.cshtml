@@ -1,0 +1,57 @@
+@model TraSachVM
+@{
+    ViewData["Title"] = "Trả sách & xử lý phạt";
+    ViewData["Crumb"] = "Mượn – trả / Trả sách";
+    TienPhatDuKien? tien = ViewBag.TienPhat;
+}
+<div class="card border-0 shadow-sm mb-3"><div class="card-body">
+    <form method="get" class="d-flex gap-2" style="max-width:480px">
+        <input name="id" value="@(Model.MaPhieuMuon == 0 ? "" : Model.MaPhieuMuon.ToString())" class="form-control" placeholder="Nhập mã phiếu mượn (số), ví dụ 12" />
+        <button class="btn btn-primary text-nowrap">Tìm phiếu</button>
+    </form>
+    @if (Model.Phieu != null)
+    {
+        <div class="d-flex flex-wrap gap-4 mt-3">
+            <div><span class="text-muted">Phiếu:</span> <b>@Model.Phieu.MaHienThi</b></div>
+            <div><span class="text-muted">Độc giả:</span> <b>@Model.Phieu.DocGia?.HoTen</b></div>
+            <div><span class="text-muted">Ngày mượn:</span> @Model.Phieu.NgayMuon?.ToString("dd/MM/yyyy")</div>
+            <div><span class="text-muted">Hạn trả:</span> @Model.Phieu.NgayHenTra?.ToString("dd/MM/yyyy")</div>
+            @if (tien?.SoNgayTre > 0) { <span class="badge text-bg-danger">Quá hạn @tien.SoNgayTre ngày</span> }
+        </div>
+    }
+</div></div>
+
+@if (Model.Phieu != null)
+{
+    <form asp-action="TraSach" method="post">
+        <input type="hidden" asp-for="MaPhieuMuon" />
+        <div class="row g-3">
+            <div class="col-lg-8"><div class="card border-0 shadow-sm"><div class="card-body">
+                <h6 class="fw-bold">Sách trả</h6>
+                <table class="table align-middle">
+                    <thead class="table-light"><tr><th>Trả</th><th>Tên sách</th><th>SL</th><th>Giá bìa</th><th>Tình trạng khi trả</th></tr></thead>
+                    @for (int i = 0; i < Model.Dong.Count; i++)
+                    {
+                        <tr>
+                            <td><input type="hidden" asp-for="Dong[i].MaChiTiet" /><input asp-for="Dong[i].ChonTra" class="form-check-input" /></td>
+                            <td>@Model.Dong[i].TenSach</td>
+                            <td>@Model.Dong[i].SoLuong</td>
+                            <td>@Model.Dong[i].GiaBia.ToString("N0")đ</td>
+                            <td><select asp-for="Dong[i].TinhTrang" asp-items="@(new SelectList(TinhTrangSach.TatCa))" class="form-select form-select-sm"></select></td>
+                        </tr>
+                    }
+                </table>
+                <p class="small text-muted mb-0">Quy định: phạt trễ hạn 5.000đ/cuốn/ngày; hư hỏng nhẹ bồi thường 10%, hư hỏng nặng 50%, mất sách 100% giá bìa. Tiền phạt chính xác được tính lại khi xác nhận.</p>
+            </div></div></div>
+            <div class="col-lg-4"><div class="card border-0 shadow-sm"><div class="card-body">
+                <h6 class="fw-bold">Tiền phạt dự kiến</h6>
+                <table class="table table-sm">
+                    <tr><td class="text-muted">Phạt trễ hạn (@tien?.SoNgayTre ngày)</td><td class="text-end">@tien?.PhatTreHan.ToString("N0")đ</td></tr>
+                    <tr><td class="text-muted">Bồi thường (nếu tình trạng bình thường)</td><td class="text-end">@tien?.BoiThuong.ToString("N0")đ</td></tr>
+                    <tr><td><b>Tổng cộng</b></td><td class="text-end text-danger fw-bold fs-5">@tien?.Tong.ToString("N0")đ</td></tr>
+                </table>
+                <button class="btn btn-success w-100"><i class="bi bi-check2-circle"></i> Xác nhận trả sách</button>
+            </div></div></div>
+        </div>
+    </form>
+}

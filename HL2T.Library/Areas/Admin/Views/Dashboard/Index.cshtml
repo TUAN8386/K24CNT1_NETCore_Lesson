@@ -1,0 +1,53 @@
+@model DashboardVM
+@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["Crumb"] = "Trang quản trị / Tổng quan";
+    var max = Math.Max(1, Model.LuotMuonTheoThang.Select(x => x.SoLuot).DefaultIfEmpty(0).Max());
+}
+<div class="row g-3 mb-4">
+    <div class="col-md-3"><div class="hl-kpi">Tổng số đầu sách<b>@Model.TongDauSach.ToString("N0")</b><small>@Model.TongBanSach.ToString("N0") bản sách</small></div></div>
+    <div class="col-md-3"><div class="hl-kpi warn">Phiếu đang mượn<b>@Model.PhieuDangMuon</b><small>@Model.PhieuChoDuyet phiếu chờ duyệt</small></div></div>
+    <div class="col-md-3"><div class="hl-kpi danger">Phiếu quá hạn<b>@Model.PhieuQuaHan</b><small>Cần nhắc trả</small></div></div>
+    <div class="col-md-3"><div class="hl-kpi ok">Độc giả hoạt động<b>@Model.SoDocGia.ToString("N0")</b><small>&nbsp;</small></div></div>
+</div>
+<div class="row g-3 mb-4">
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm h-100"><div class="card-body">
+            <h6 class="fw-bold mb-4">Số lượt mượn 6 tháng gần nhất</h6>
+            <div class="hl-bars">
+                @foreach (var (thang, so) in Model.LuotMuonTheoThang)
+                {
+                    <div class="hl-bar-col"><span>@so</span><div class="hl-bar" style="height:@(so * 180 / max)px"></div><small>@thang</small></div>
+                }
+            </div>
+        </div></div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm h-100"><div class="card-body">
+            <h6 class="fw-bold mb-3">Top 5 sách được mượn nhiều</h6>
+            <table class="table table-sm">
+                <thead class="table-light"><tr><th>#</th><th>Tên sách</th><th class="text-end">Lượt</th></tr></thead>
+                @{ int i = 1; }
+                @foreach (var (ten, so) in Model.TopSach)
+                {
+                    <tr><td>@(i++)</td><td>@ten</td><td class="text-end fw-bold">@so</td></tr>
+                }
+            </table>
+        </div></div>
+    </div>
+</div>
+<div class="card border-0 shadow-sm"><div class="card-body">
+    <div class="d-flex mb-2"><h6 class="fw-bold">Phiếu mượn gần đây</h6><a class="ms-auto btn btn-outline-primary btn-sm" asp-controller="PhieuMuon" asp-action="Index">Xem tất cả</a></div>
+    <table class="table align-middle">
+        <thead class="table-light"><tr><th>Mã phiếu</th><th>Độc giả</th><th>Ngày lập</th><th>Số sách</th><th>Trạng thái</th></tr></thead>
+        @foreach (var p in Model.PhieuGanDay)
+        {
+            <tr>
+                <td><a asp-controller="PhieuMuon" asp-action="Index" asp-route-chon="@p.MaPhieuMuon" class="fw-semibold">@p.MaHienThi</a></td>
+                <td>@p.DocGia?.HoTen</td><td>@p.NgayLap.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@p.ChiTietPhieuMuons.Sum(c => c.SoLuong)</td>
+                <td><span class="badge @TrangThaiPhieu.Badge(p.TrangThai)">@TrangThaiPhieu.HienThi(p.TrangThai)</span></td>
+            </tr>
+        }
+    </table>
+</div></div>

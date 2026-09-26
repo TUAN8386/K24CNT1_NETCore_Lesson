@@ -1,0 +1,54 @@
+@model List<PhieuMuon>
+@{
+    ViewData["Title"] = "Lịch sử mượn trả";
+    string? tt = ViewBag.TrangThai;
+    decimal noPhat = ViewBag.NoPhat;
+}
+<h4 class="mb-3">Lịch sử mượn trả</h4>
+<div class="row g-3 mb-3">
+    <div class="col-md-3"><div class="hl-kpi">Đang mượn<b>@Model.Count(p => p.TrangThai == TrangThaiPhieu.DangMuon || p.TrangThai == TrangThaiPhieu.QuaHan)</b></div></div>
+    <div class="col-md-3"><div class="hl-kpi warn">Chờ duyệt<b>@Model.Count(p => p.TrangThai == TrangThaiPhieu.ChoDuyet)</b></div></div>
+    <div class="col-md-3"><div class="hl-kpi ok">Đã trả<b>@Model.Count(p => p.TrangThai == TrangThaiPhieu.DaTra)</b></div></div>
+    <div class="col-md-3"><div class="hl-kpi danger">Tiền phạt chưa nộp<b>@noPhat.ToString("N0")đ</b></div></div>
+</div>
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form method="get" class="mb-3 d-flex gap-2" style="max-width:320px">
+            <select name="trangThai" class="form-select" onchange="this.form.submit()">
+                <option value="">Tất cả trạng thái</option>
+                @foreach (var s in TrangThaiPhieu.TatCa)
+                {
+                    <option value="@s" selected="@(s == tt)">@TrangThaiPhieu.HienThi(s)</option>
+                }
+            </select>
+        </form>
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead class="table-light"><tr><th>Mã phiếu</th><th>Ngày lập</th><th>Ngày mượn</th><th>Hạn trả</th><th>Sách mượn</th><th>Trạng thái</th><th>Tiền phạt</th><th></th></tr></thead>
+                <tbody>
+                    @foreach (var p in Model)
+                    {
+                        var phat = p.BienLaiPhats.Sum(b => b.SoTien);
+                        <tr>
+                            <td class="fw-semibold">@p.MaHienThi</td>
+                            <td>@p.NgayLap.ToString("dd/MM/yyyy")</td>
+                            <td>@(p.NgayMuon?.ToString("dd/MM/yyyy") ?? "—")</td>
+                            <td>@(p.NgayHenTra?.ToString("dd/MM/yyyy") ?? "—")</td>
+                            <td>@string.Join("; ", p.ChiTietPhieuMuons.Select(c => c.Sach?.TenSach))</td>
+                            <td><span class="badge @TrangThaiPhieu.Badge(p.TrangThai)">@TrangThaiPhieu.HienThi(p.TrangThai)</span>
+                                @if (!string.IsNullOrEmpty(p.GhiChu)) { <div class="small text-muted">@p.GhiChu</div> }</td>
+                            <td>@(phat > 0 ? phat.ToString("N0") + "đ" : "—")</td>
+                            <td>
+                                @if (p.TrangThai == TrangThaiPhieu.DangMuon && !p.DaGiaHan)
+                                {
+                                    <form asp-action="GiaHan" asp-route-id="@p.MaPhieuMuon" method="post"><button class="btn btn-outline-primary btn-sm">Gia hạn</button></form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any()) { <tr><td colspan="8" class="text-center text-muted">Chưa có phiếu mượn nào.</td></tr> }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

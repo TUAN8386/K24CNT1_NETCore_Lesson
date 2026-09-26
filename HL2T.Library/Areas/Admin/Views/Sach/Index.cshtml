@@ -1,0 +1,36 @@
+@model TimKiemSachVM
+@{
+    ViewData["Title"] = "Quản lý sách";
+    ViewData["Crumb"] = "Quản lý kho sách / Danh sách sách";
+}
+<div class="card border-0 shadow-sm"><div class="card-body">
+    <form method="get" class="row g-2 mb-3">
+        <div class="col-md-4"><input name="TuKhoa" value="@Model.TuKhoa" class="form-control" placeholder="Tìm theo tên sách, tác giả, ISBN..." /></div>
+        <div class="col-md-3">
+            <select name="MaDanhMuc" class="form-select">
+                <option value="">Danh mục: Tất cả</option>
+                @foreach (var d in Model.DanhMucs) { <option value="@d.MaDanhMuc" selected="@(d.MaDanhMuc == Model.MaDanhMuc)">@d.TenDanhMuc</option> }
+            </select>
+        </div>
+        <div class="col-md-2"><button class="btn btn-outline-primary w-100">Lọc</button></div>
+        <div class="col-md-3 text-end"><a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Thêm sách mới</a></div>
+    </form>
+    <div class="table-responsive">
+    <table class="table align-middle">
+        <thead class="table-light"><tr><th>Mã sách</th><th>Tên sách</th><th>Tác giả</th><th>Danh mục</th><th>Năm XB</th><th class="text-center">Khả dụng / Tổng</th><th>Thao tác</th></tr></thead>
+        @foreach (var s in Model.KetQua)
+        {
+            <tr>
+                <td>@("S" + s.MaSach.ToString("D5"))</td>
+                <td class="fw-semibold">@s.TenSach</td><td>@s.TacGia</td><td>@s.DanhMucSach?.TenDanhMuc</td><td>@s.NamXuatBan</td>
+                <td class="text-center"><span class="badge @(s.SoLuongKhaDung > 0 ? "text-bg-success" : "text-bg-danger")">@s.SoLuongKhaDung/@s.TongSoLuong</span></td>
+                <td class="d-flex gap-1">
+                    <a asp-action="Edit" asp-route-id="@s.MaSach" class="btn btn-outline-primary btn-sm">Sửa</a>
+                    <form asp-action="Delete" asp-route-id="@s.MaSach" method="post" onsubmit="return confirm('Xóa sách này?')"><button class="btn btn-danger btn-sm">Xóa</button></form>
+                </td>
+            </tr>
+        }
+    </table>
+    </div>
+    <div class="d-flex align-items-center"><span class="text-muted small">Tổng @Model.TongSo sách</span><div class="ms-auto"><partial name="_PhanTrang" model="Model" /></div></div>
+</div></div>

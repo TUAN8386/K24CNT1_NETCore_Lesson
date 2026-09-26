@@ -1,0 +1,29 @@
+@model IEnumerable<DatSubject>
+@{
+    ViewData["Title"] = "Danh sách môn học";
+}
+<h2>Danh sách môn học</h2>
+<p><a class="btn btn-sm btn-success" asp-action="DatCreate">Thêm mới môn học</a></p>
+<table class="table table-hover bg-white align-middle">
+    <thead>
+        <tr>
+            <th>Mã môn</th>
+            <th>@Html.DisplayNameFor(model => model.SubjectName)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var datItem in Model)
+        {
+            <tr>
+                <td>@datItem.Id</td>
+                <td>@datItem.SubjectName</td>
+                <td class="text-nowrap">
+                    <a class="btn btn-sm btn-primary" asp-action="DatEdit" asp-route-id="@datItem.Id">Edit</a>
+                    <a class="btn btn-sm btn-success" asp-action="DatDetails" asp-route-id="@datItem.Id">Details</a>
+                    <a class="btn btn-sm btn-danger" asp-action="DatDelete" asp-route-id="@datItem.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

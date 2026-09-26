@@ -1,0 +1,16 @@
+@model Sach
+<a asp-controller="Sach" asp-action="ChiTiet" asp-route-id="@Model.MaSach" class="card h-100 text-decoration-none text-dark hl-card">
+    <div class="p-2"><partial name="_AnhBia" model="Model" /></div>
+    <div class="card-body pt-0 px-2">
+        <div class="fw-semibold small hl-2line">@Model.TenSach</div>
+        <div class="text-muted small">@Model.TacGia</div>
+        @if (Model.SoLuongKhaDung > 0)
+        {
+            <span class="badge text-bg-success mt-1">Còn @Model.SoLuongKhaDung cuốn</span>
+        }
+        else
+        {
+            <span class="badge text-bg-danger mt-1">Hết sách</span>
+        }
+    </div>
+</a>

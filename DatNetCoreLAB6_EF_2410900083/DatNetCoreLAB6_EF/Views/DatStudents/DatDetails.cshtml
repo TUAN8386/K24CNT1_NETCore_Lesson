@@ -1,0 +1,39 @@
+@model DatStudent
+@{
+    ViewData["Title"] = "Chi tiết sinh viên";
+}
+<h2>Chi tiết sinh viên</h2>
+<hr />
+<div class="row">
+    <div class="col-md-3">
+        <img src="/images/avatars/@Model.StudentAvatar" class="img-fluid rounded border" alt="@Model.StudentName" />
+    </div>
+    <div class="col-md-9">
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.StudentName)</dt>
+            <dd class="col-sm-9">@Model.StudentName</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.StudentEmail)</dt>
+            <dd class="col-sm-9">@Model.StudentEmail</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.StudentPhone)</dt>
+            <dd class="col-sm-9">@Model.StudentPhone</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.StudentAddress)</dt>
+            <dd class="col-sm-9">@Model.StudentAddress</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.StudentBirthday)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.StudentBirthday)</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ClassId)</dt>
+            <dd class="col-sm-9">@Model.StdClass?.ClassName</dd>
+        </dl>
+        <h5>Bảng điểm</h5>
+        <table class="table table-sm bg-white">
+            <thead><tr><th>Môn học</th><th>Điểm</th></tr></thead>
+            <tbody>
+                @foreach (var datMark in Model.Marks)
+                {
+                    <tr><td>@datMark.Subject?.SubjectName</td><td>@datMark.Score</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<a class="btn btn-sm btn-primary" asp-action="DatEdit" asp-route-id="@Model.Id">Edit</a>
+<a class="btn btn-sm btn-secondary" asp-action="DatIndex">Back to List</a>

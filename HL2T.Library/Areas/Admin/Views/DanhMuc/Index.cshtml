@@ -1,0 +1,23 @@
+@model List<DanhMucSach>
+@{
+    ViewData["Title"] = "Danh mục sách";
+    ViewData["Crumb"] = "Quản lý kho sách / Danh mục";
+    var soSach = (Dictionary<int, int>)ViewBag.SoSach;
+}
+<div class="card border-0 shadow-sm"><div class="card-body">
+    <div class="d-flex mb-3"><a asp-action="Create" class="btn btn-primary ms-auto"><i class="bi bi-plus-lg"></i> Thêm danh mục</a></div>
+    <table class="table align-middle">
+        <thead class="table-light"><tr><th>Mã</th><th>Tên danh mục</th><th>Mô tả</th><th class="text-center">Số đầu sách</th><th>Thao tác</th></tr></thead>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.MaDanhMuc</td><td class="fw-semibold">@d.TenDanhMuc</td><td>@d.MoTa</td>
+                <td class="text-center">@(soSach.TryGetValue(d.MaDanhMuc, out var n) ? n : 0)</td>
+                <td class="d-flex gap-1">
+                    <a asp-action="Edit" asp-route-id="@d.MaDanhMuc" class="btn btn-outline-primary btn-sm">Sửa</a>
+                    <form asp-action="Delete" asp-route-id="@d.MaDanhMuc" method="post" onsubmit="return confirm('Xóa danh mục này?')"><button class="btn btn-danger btn-sm">Xóa</button></form>
+                </td>
+            </tr>
+        }
+    </table>
+</div></div>

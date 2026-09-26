@@ -1,0 +1,19 @@
+@model DoiMatKhauVM
+@{ ViewData["Title"] = "Đổi mật khẩu"; }
+<div class="row justify-content-center">
+    <div class="col-lg-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h4 class="mb-3">Đổi mật khẩu</h4>
+                <form asp-action="DoiMatKhau" method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2"></div>
+                    <div class="mb-3"><label asp-for="MatKhauCu" class="form-label"></label><input asp-for="MatKhauCu" class="form-control" /><span asp-validation-for="MatKhauCu" class="text-danger small"></span></div>
+                    <div class="mb-3"><label asp-for="MatKhauMoi" class="form-label"></label><input asp-for="MatKhauMoi" class="form-control" /><span asp-validation-for="MatKhauMoi" class="text-danger small"></span></div>
+                    <div class="mb-3"><label asp-for="XacNhanMatKhau" class="form-label"></label><input asp-for="XacNhanMatKhau" class="form-control" /><span asp-validation-for="XacNhanMatKhau" class="text-danger small"></span></div>
+                    <button class="btn btn-primary">Cập nhật mật khẩu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

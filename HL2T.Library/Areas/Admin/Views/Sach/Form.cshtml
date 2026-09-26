@@ -1,0 +1,35 @@
+@model SachFormVM
+@{
+    ViewData["Title"] = Model.MaSach == 0 ? "Thêm sách mới" : "Cập nhật sách";
+    ViewData["Crumb"] = "Quản lý kho sách / Quản lý sách";
+}
+<form asp-action="Save" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="MaSach" />
+    <input type="hidden" asp-for="AnhBiaHienTai" />
+    <div class="row g-3">
+        <div class="col-lg-8"><div class="card border-0 shadow-sm"><div class="card-body">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2"></div>
+            <div class="row g-3">
+                <div class="col-md-6"><label asp-for="ISBN" class="form-label fw-semibold"></label><input asp-for="ISBN" class="form-control" /></div>
+                <div class="col-md-6"><label asp-for="MaDanhMuc" class="form-label fw-semibold"></label>
+                    <select asp-for="MaDanhMuc" asp-items="ViewBag.DanhMucs" class="form-select"><option value="">-- Chọn danh mục --</option></select>
+                    <span asp-validation-for="MaDanhMuc" class="text-danger small"></span></div>
+                <div class="col-12"><label asp-for="TenSach" class="form-label fw-semibold"></label><input asp-for="TenSach" class="form-control" /><span asp-validation-for="TenSach" class="text-danger small"></span></div>
+                <div class="col-md-6"><label asp-for="TacGia" class="form-label fw-semibold"></label><input asp-for="TacGia" class="form-control" /><span asp-validation-for="TacGia" class="text-danger small"></span></div>
+                <div class="col-md-6"><label asp-for="NhaXuatBan" class="form-label fw-semibold"></label><input asp-for="NhaXuatBan" class="form-control" /></div>
+                <div class="col-md-4"><label asp-for="NamXuatBan" class="form-label fw-semibold"></label><input asp-for="NamXuatBan" class="form-control" /><span asp-validation-for="NamXuatBan" class="text-danger small"></span></div>
+                <div class="col-md-4"><label asp-for="GiaBia" class="form-label fw-semibold"></label><input asp-for="GiaBia" class="form-control" /><span asp-validation-for="GiaBia" class="text-danger small"></span></div>
+                <div class="col-md-4"><label asp-for="TongSoLuong" class="form-label fw-semibold"></label><input asp-for="TongSoLuong" class="form-control" /><span asp-validation-for="TongSoLuong" class="text-danger small"></span></div>
+                <div class="col-12"><label asp-for="MoTa" class="form-label fw-semibold"></label><textarea asp-for="MoTa" class="form-control" rows="4"></textarea></div>
+            </div>
+            <div class="d-flex gap-2 justify-content-end mt-3"><a asp-action="Index" class="btn btn-outline-secondary">Hủy</a><button class="btn btn-primary"><i class="bi bi-save"></i> Lưu sách</button></div>
+        </div></div></div>
+        <div class="col-lg-4"><div class="card border-0 shadow-sm"><div class="card-body">
+            <label asp-for="AnhBia" class="form-label fw-semibold"></label>
+            @if (!string.IsNullOrEmpty(Model.AnhBiaHienTai)) { <img src="@Model.AnhBiaHienTai" class="hl-cover mb-2" alt="Ảnh bìa" /> }
+            <input asp-for="AnhBia" type="file" accept=".jpg,.jpeg,.png,.webp" class="form-control" />
+            <p class="small text-muted mt-2">JPG, PNG, WEBP ≤ 2MB. Số lượng khả dụng được khởi tạo bằng tổng số lượng khi thêm mới.</p>
+        </div></div></div>
+    </div>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -1,0 +1,12 @@
+@model TimKiemSachVM
+@if (Model.TongSoTrang > 1)
+{
+    <nav><ul class="pagination justify-content-center">
+        @for (int i = 1; i <= Model.TongSoTrang; i++)
+        {
+            <li class="page-item @(i == Model.Trang ? "active" : "")">
+                <a class="page-link" asp-route-Trang="@i" asp-route-TuKhoa="@Model.TuKhoa" asp-route-MaDanhMuc="@Model.MaDanhMuc" asp-route-ChiConSach="@Model.ChiConSach">@i</a>
+            </li>
+        }
+    </ul></nav>
+}

@@ -1,0 +1,26 @@
+@model DatProduct
+<div class="col">
+    <div class="card h-100 shadow-sm dat-card">
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <img src="/images/products/@Model.Image" class="card-img-top" alt="@Model.Name" />
+        }
+        else
+        {
+            <div class="card-img-top d-flex align-items-center justify-content-center bg-light text-muted" style="height:200px">Chưa có ảnh</div>
+        }
+        <div class="card-body text-center">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="small text-muted mb-1">@Model.Category?.Name</p>
+            @if (Model.SalePrice > 0 && Model.SalePrice < Model.Price)
+            {
+                <div class="text-danger fw-bold">@Model.SalePrice.ToString("N0") đ</div>
+                <div class="dat-old-price">@Model.Price.ToString("N0") đ</div>
+            }
+            else
+            {
+                <div class="text-danger fw-bold">@Model.Price.ToString("N0") đ</div>
+            }
+        </div>
+    </div>
+</div>

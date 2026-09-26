@@ -1,0 +1,41 @@
+@model IEnumerable<DatStudent>
+@{
+    ViewData["Title"] = "Danh sách sinh viên";
+}
+<h2>Danh sách sinh viên</h2>
+<p><a class="btn btn-sm btn-success" asp-action="DatCreate">Thêm mới sinh viên</a></p>
+<div class="table-responsive">
+<table class="table table-hover bg-white align-middle">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.StudentAvatar)</th>
+            <th>@Html.DisplayNameFor(model => model.StudentName)</th>
+            <th>@Html.DisplayNameFor(model => model.StudentEmail)</th>
+            <th>@Html.DisplayNameFor(model => model.StudentPhone)</th>
+            <th>@Html.DisplayNameFor(model => model.StudentAddress)</th>
+            <th>@Html.DisplayNameFor(model => model.StudentBirthday)</th>
+            <th>@Html.DisplayNameFor(model => model.ClassId)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var datItem in Model)
+        {
+            <tr>
+                <td><img src="/images/avatars/@datItem.StudentAvatar" class="dat-avatar" alt="" /></td>
+                <td>@datItem.StudentName</td>
+                <td>@datItem.StudentEmail</td>
+                <td>@datItem.StudentPhone</td>
+                <td>@datItem.StudentAddress</td>
+                <td>@Html.DisplayFor(modelItem => datItem.StudentBirthday)</td>
+                <td>@datItem.StdClass?.ClassName</td>
+                <td class="text-nowrap">
+                    <a class="btn btn-sm btn-primary" asp-action="DatEdit" asp-route-id="@datItem.Id">Edit</a>
+                    <a class="btn btn-sm btn-success" asp-action="DatDetails" asp-route-id="@datItem.Id">Details</a>
+                    <a class="btn btn-sm btn-danger" asp-action="DatDelete" asp-route-id="@datItem.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

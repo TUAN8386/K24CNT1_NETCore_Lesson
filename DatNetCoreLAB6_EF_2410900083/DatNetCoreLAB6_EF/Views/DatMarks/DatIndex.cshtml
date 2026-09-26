@@ -1,0 +1,31 @@
+@model IEnumerable<DatMark>
+@{
+    ViewData["Title"] = "Bảng điểm";
+}
+<h2>Bảng điểm</h2>
+<p><a class="btn btn-sm btn-success" asp-action="DatCreate">Nhập điểm</a></p>
+<table class="table table-hover bg-white align-middle">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.StudentId)</th>
+            <th>@Html.DisplayNameFor(model => model.SubjectId)</th>
+            <th>@Html.DisplayNameFor(model => model.Score)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var datItem in Model)
+        {
+            <tr>
+                <td>@datItem.Student?.StudentName</td>
+                <td>@datItem.Subject?.SubjectName</td>
+                <td>@datItem.Score</td>
+                <td class="text-nowrap">
+                    <a class="btn btn-sm btn-primary" asp-action="DatEdit" asp-route-subjectId="@datItem.SubjectId" asp-route-studentId="@datItem.StudentId">Edit</a>
+                    <a class="btn btn-sm btn-success" asp-action="DatDetails" asp-route-subjectId="@datItem.SubjectId" asp-route-studentId="@datItem.StudentId">Details</a>
+                    <a class="btn btn-sm btn-danger" asp-action="DatDelete" asp-route-subjectId="@datItem.SubjectId" asp-route-studentId="@datItem.StudentId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

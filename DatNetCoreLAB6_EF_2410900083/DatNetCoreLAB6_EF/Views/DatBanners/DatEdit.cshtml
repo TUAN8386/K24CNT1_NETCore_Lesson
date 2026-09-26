@@ -1,0 +1,48 @@
+@model DatBanner
+@{
+    ViewData["Title"] = "Chỉnh sửa banner";
+}
+<h2>Chỉnh sửa banner</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="DatEdit" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Image" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Image" class="form-label"></label>
+                <input type="file" name="datImageFile" class="form-control" accept="image/*" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+                @if (!string.IsNullOrEmpty(Model.Image))
+                {
+                    <div class="mt-2">
+                        <img src="/images/banners/@Model.Image" class="dat-preview" alt="" />
+                        <div class="form-text">Để trống nếu muốn giữ ảnh hiện tại</div>
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Status" class="form-label"></label>
+                <partial name="_DatStatusSelect" model="Model.Status" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <input type="submit" value="Cập nhật" class="btn btn-sm btn-success" />
+            <a class="btn btn-sm btn-danger" asp-action="DatIndex">Back to List</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

@@ -1,0 +1,38 @@
+@model DatProduct
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+<h2>Xóa sản phẩm</h2>
+<h4 class="text-danger">Bạn có chắc muốn xóa sản phẩm này?</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <img src="/images/products/@Model.Image" class="img-fluid rounded border" alt="@Model.Name" />
+        }
+    </div>
+    <div class="col-md-8">
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Name)</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Category)</dt>
+            <dd class="col-sm-9">@Model.Category?.Name</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Price)</dt>
+            <dd class="col-sm-9">@Model.Price.ToString("N0") đ</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.SalePrice)</dt>
+            <dd class="col-sm-9">@Model.SalePrice.ToString("N0") đ</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Status)</dt>
+            <dd class="col-sm-9"><partial name="_DatStatusBadge" model="Model.Status" /></dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Descriptions)</dt>
+            <dd class="col-sm-9">@Model.Descriptions</dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CreatedDate)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedDate)</dd>
+        </dl>
+    </div>
+</div>
+<form asp-action="DatDelete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Delete" class="btn btn-sm btn-danger" />
+    <a class="btn btn-sm btn-secondary" asp-action="DatIndex">Back to List</a>
+</form>

@@ -1,0 +1,55 @@
+@model TimKiemSachVM
+@{ ViewData["Title"] = "Tra cứu sách"; }
+<div class="row g-4">
+    <div class="col-lg-3">
+        <form method="get" class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-bold mb-3">Bộ lọc tìm kiếm</h6>
+                <div class="mb-3"><label class="form-label small fw-semibold">Từ khóa</label>
+                    <input name="TuKhoa" value="@Model.TuKhoa" class="form-control" placeholder="Tên sách, tác giả, ISBN" /></div>
+                <div class="mb-3"><label class="form-label small fw-semibold">Danh mục</label>
+                    <select name="MaDanhMuc" class="form-select">
+                        <option value="">Tất cả</option>
+                        @foreach (var d in Model.DanhMucs)
+                        {
+                            <option value="@d.MaDanhMuc" selected="@(d.MaDanhMuc == Model.MaDanhMuc)">@d.TenDanhMuc</option>
+                        }
+                    </select></div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="ChiConSach" value="true" id="con" checked="@Model.ChiConSach" />
+                    <label class="form-check-label" for="con">Chỉ hiện sách còn</label>
+                </div>
+                <button class="btn btn-primary w-100">Áp dụng</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-9">
+        <p><b>@Model.TongSo</b> kết quả @if (!string.IsNullOrEmpty(Model.TuKhoa)) { <text>cho “<b>@Model.TuKhoa</b>”</text> }</p>
+        @if (!Model.KetQua.Any())
+        {
+            <div class="alert alert-info">Không tìm thấy sách phù hợp. Hãy thử từ khóa khác.</div>
+        }
+        @foreach (var s in Model.KetQua)
+        {
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body d-flex gap-3 align-items-center">
+                    <div style="width:70px"><partial name="_AnhBia" model="s" /></div>
+                    <div class="flex-grow-1">
+                        <a asp-action="ChiTiet" asp-route-id="@s.MaSach" class="fw-bold text-decoration-none">@s.TenSach</a>
+                        <div class="text-muted small">Tác giả: @s.TacGia · Danh mục: @s.DanhMucSach?.TenDanhMuc · @s.NhaXuatBan @s.NamXuatBan</div>
+                        @if (s.SoLuongKhaDung > 0)
+                        {
+                            <span class="badge text-bg-success">Còn @s.SoLuongKhaDung/@s.TongSoLuong</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-danger">Hết sách</span>
+                        }
+                    </div>
+                    <a asp-action="ChiTiet" asp-route-id="@s.MaSach" class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+                </div>
+            </div>
+        }
+        <partial name="_PhanTrang" model="Model" />
+    </div>
+</div>

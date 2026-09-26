@@ -1,0 +1,16 @@
+@model LapPhieuVM
+@{
+    ViewData["Title"] = "Lập phiếu mượn tại quầy";
+    ViewData["Crumb"] = "Mượn – trả / Phiếu mượn / Lập phiếu";
+}
+<div class="card border-0 shadow-sm" style="max-width:680px"><div class="card-body">
+    <form asp-action="LapPhieu" method="post">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2"></div>
+        <div class="mb-3"><label asp-for="DocGia" class="form-label fw-semibold"></label><input asp-for="DocGia" class="form-control" /><span asp-validation-for="DocGia" class="text-danger small"></span></div>
+        <div class="mb-3"><label asp-for="DanhSachMaSach" class="form-label fw-semibold"></label><input asp-for="DanhSachMaSach" class="form-control" placeholder="Ví dụ: S00001, S00005" />
+            <span asp-validation-for="DanhSachMaSach" class="text-danger small"></span></div>
+        <p class="small text-muted">Hệ thống kiểm tra điều kiện mượn (tối đa 5 cuốn, không có phiếu quá hạn / nợ phạt) và số lượng khả dụng, sau đó duyệt phiếu ngay với hạn trả 14 ngày.</p>
+        <div class="d-flex gap-2"><a asp-action="Index" class="btn btn-outline-secondary">Hủy</a><button class="btn btn-primary">Lập phiếu &amp; giao sách</button></div>
+    </form>
+</div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

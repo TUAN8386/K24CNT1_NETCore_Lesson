@@ -1,0 +1,14 @@
+@model DanhMucSach
+@{
+    ViewData["Title"] = Model.MaDanhMuc == 0 ? "Thêm danh mục" : "Cập nhật danh mục";
+    ViewData["Crumb"] = "Quản lý kho sách / Danh mục";
+}
+<div class="card border-0 shadow-sm" style="max-width:640px"><div class="card-body">
+    <form asp-action="Save" method="post">
+        <input type="hidden" asp-for="MaDanhMuc" />
+        <div class="mb-3"><label asp-for="TenDanhMuc" class="form-label fw-semibold"></label><input asp-for="TenDanhMuc" class="form-control" /><span asp-validation-for="TenDanhMuc" class="text-danger small"></span></div>
+        <div class="mb-3"><label asp-for="MoTa" class="form-label fw-semibold"></label><textarea asp-for="MoTa" class="form-control" rows="3"></textarea></div>
+        <div class="d-flex gap-2"><a asp-action="Index" class="btn btn-outline-secondary">Hủy</a><button class="btn btn-primary">Lưu</button></div>
+    </form>
+</div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

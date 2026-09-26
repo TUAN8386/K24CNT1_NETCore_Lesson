@@ -1,0 +1,95 @@
+@model List<PhieuMuon>
+@{
+    ViewData["Title"] = "Quản lý phiếu mượn";
+    ViewData["Crumb"] = "Mượn – trả / Phiếu mượn";
+    string? tt = ViewBag.TrangThai;
+    PhieuMuon? chon = ViewBag.PhieuChon;
+    KetQua? dk = ViewBag.DieuKien;
+}
+<div class="row g-3">
+    <div class="@(chon != null ? "col-xl-7" : "col-12")">
+        <div class="card border-0 shadow-sm"><div class="card-body">
+            <form method="get" class="row g-2 mb-3">
+                <div class="col-md-4">
+                    <select name="trangThai" class="form-select">
+                        <option value="">Trạng thái: Tất cả</option>
+                        @foreach (var s in TrangThaiPhieu.TatCa) { <option value="@s" selected="@(s == tt)">@TrangThaiPhieu.HienThi(s)</option> }
+                    </select>
+                </div>
+                <div class="col-md-4"><input name="tuKhoa" value="@ViewBag.TuKhoa" class="form-control" placeholder="Tên / tài khoản độc giả" /></div>
+                <div class="col-md-2"><button class="btn btn-outline-primary w-100">Lọc</button></div>
+                <div class="col-md-2"><a asp-action="LapPhieu" class="btn btn-primary w-100">+ Lập phiếu</a></div>
+            </form>
+            <div class="table-responsive">
+            <table class="table align-middle">
+                <thead class="table-light"><tr><th>Mã phiếu</th><th>Độc giả</th><th>Ngày lập</th><th>Hạn trả</th><th>SL</th><th>Trạng thái</th></tr></thead>
+                @foreach (var p in Model)
+                {
+                    <tr class="@(chon?.MaPhieuMuon == p.MaPhieuMuon ? "table-active" : "")">
+                        <td><a asp-action="Index" asp-route-chon="@p.MaPhieuMuon" asp-route-trangThai="@tt" class="fw-semibold">@p.MaHienThi</a></td>
+                        <td>@p.DocGia?.HoTen<div class="small text-muted">@p.DocGia?.TenDangNhap</div></td>
+                        <td>@p.NgayLap.ToString("dd/MM/yyyy")</td>
+                        <td>@(p.NgayHenTra?.ToString("dd/MM/yyyy") ?? "—")</td>
+                        <td>@p.ChiTietPhieuMuons.Sum(c => c.SoLuong)</td>
+                        <td><span class="badge @TrangThaiPhieu.Badge(p.TrangThai)">@TrangThaiPhieu.HienThi(p.TrangThai)</span></td>
+                    </tr>
+                }
+                @if (!Model.Any()) { <tr><td colspan="6" class="text-center text-muted">Không có phiếu mượn.</td></tr> }
+            </table>
+            </div>
+        </div></div>
+    </div>
+    @if (chon != null)
+    {
+        <div class="col-xl-5">
+            <div class="card border-0 shadow-sm"><div class="card-body">
+                <h6 class="fw-bold">Chi tiết phiếu @chon.MaHienThi <span class="badge @TrangThaiPhieu.Badge(chon.TrangThai)">@TrangThaiPhieu.HienThi(chon.TrangThai)</span></h6>
+                <table class="table table-sm mb-3">
+                    <tr><td class="text-muted">Độc giả</td><td><b>@chon.DocGia?.HoTen</b> (@chon.DocGia?.TenDangNhap)</td></tr>
+                    <tr><td class="text-muted">Ngày lập</td><td>@chon.NgayLap.ToString("dd/MM/yyyy HH:mm")</td></tr>
+                    <tr><td class="text-muted">Ngày mượn</td><td>@(chon.NgayMuon?.ToString("dd/MM/yyyy") ?? "—")</td></tr>
+                    <tr><td class="text-muted">Hạn trả</td><td>@(chon.NgayHenTra?.ToString("dd/MM/yyyy") ?? "—") @(chon.DaGiaHan ? "(đã gia hạn)" : "")</td></tr>
+                    <tr><td class="text-muted">Thủ thư</td><td>@(chon.ThuThu?.HoTen ?? "—")</td></tr>
+                    @if (!string.IsNullOrEmpty(chon.GhiChu)) { <tr><td class="text-muted">Ghi chú</td><td>@chon.GhiChu</td></tr> }
+                </table>
+                <table class="table table-sm">
+                    <thead class="table-light"><tr><th>Mã sách</th><th>Tên sách</th><th>SL</th><th>Kho</th><th>Trả</th></tr></thead>
+                    @foreach (var c in chon.ChiTietPhieuMuons)
+                    {
+                        <tr>
+                            <td>@("S" + c.MaSach.ToString("D5"))</td><td>@c.Sach?.TenSach</td><td>@c.SoLuong</td>
+                            <td><span class="badge @((c.Sach?.SoLuongKhaDung ?? 0) > 0 ? "text-bg-success" : "text-bg-danger")">Còn @c.Sach?.SoLuongKhaDung</span></td>
+                            <td>@(c.NgayTraThucTe?.ToString("dd/MM") ?? "")</td>
+                        </tr>
+                    }
+                </table>
+                @if (dk != null)
+                {
+                    <div class="alert @(dk.ThanhCong ? "alert-success" : "alert-danger") py-2 small">@dk.ThongBao</div>
+                }
+                @if (chon.TrangThai == TrangThaiPhieu.ChoDuyet)
+                {
+                    <div class="d-flex gap-2 justify-content-end">
+                        <form asp-action="TuChoi" asp-route-id="@chon.MaPhieuMuon" method="post" class="d-flex gap-2">
+                            <input name="lyDo" class="form-control form-control-sm" placeholder="Lý do từ chối" />
+                            <button class="btn btn-danger btn-sm text-nowrap">Từ chối</button>
+                        </form>
+                        <form asp-action="Duyet" asp-route-id="@chon.MaPhieuMuon" method="post">
+                            <button class="btn btn-success btn-sm text-nowrap" disabled="@(dk?.ThanhCong != true)">Duyệt &amp; giao sách</button>
+                        </form>
+                    </div>
+                }
+                else if (chon.TrangThai == TrangThaiPhieu.DangMuon || chon.TrangThai == TrangThaiPhieu.QuaHan)
+                {
+                    <div class="d-flex gap-2 justify-content-end">
+                        @if (chon.TrangThai == TrangThaiPhieu.DangMuon && !chon.DaGiaHan)
+                        {
+                            <form asp-action="GiaHan" asp-route-id="@chon.MaPhieuMuon" method="post"><button class="btn btn-outline-primary btn-sm">Gia hạn 7 ngày</button></form>
+                        }
+                        <a asp-action="TraSach" asp-route-id="@chon.MaPhieuMuon" class="btn btn-primary btn-sm">Trả sách</a>
+                    </div>
+                }
+            </div></div>
+        </div>
+    }
+</div>

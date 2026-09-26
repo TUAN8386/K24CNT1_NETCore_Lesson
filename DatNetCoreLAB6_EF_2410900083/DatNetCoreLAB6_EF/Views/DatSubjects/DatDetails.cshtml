@@ -1,0 +1,21 @@
+@model DatSubject
+@{
+    ViewData["Title"] = "Chi tiết môn học";
+}
+<h2>Môn học: @Model.SubjectName</h2>
+<hr />
+<h5>Bảng điểm (@Model.Marks.Count sinh viên)</h5>
+<table class="table table-sm bg-white">
+    <thead><tr><th>Sinh viên</th><th>Điểm</th></tr></thead>
+    <tbody>
+        @foreach (var datMark in Model.Marks)
+        {
+            <tr>
+                <td>@datMark.Student?.StudentName</td>
+                <td>@datMark.Score</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-sm btn-primary" asp-action="DatEdit" asp-route-id="@Model.Id">Edit</a>
+<a class="btn btn-sm btn-secondary" asp-action="DatIndex">Back to List</a>

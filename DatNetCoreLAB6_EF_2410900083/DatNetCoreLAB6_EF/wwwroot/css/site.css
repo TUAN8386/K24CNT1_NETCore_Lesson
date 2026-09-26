@@ -1,0 +1,12 @@
+html { font-size: 15px; position: relative; min-height: 100%; }
+body { margin-bottom: 70px; background: #f7f8fa; }
+.dat-footer { position: absolute; bottom: 0; width: 100%; line-height: 60px; white-space: nowrap; }
+.dat-thumb { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; }
+.dat-avatar { width: 48px; height: 48px; object-fit: cover; border-radius: 50%; border: 1px solid #ddd; }
+.dat-preview { max-width: 240px; max-height: 180px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; }
+.dat-card img { height: 200px; object-fit: cover; }
+.dat-card .card-title { font-size: 1rem; min-height: 2.6em; }
+.dat-old-price { text-decoration: line-through; color: #888; font-size: .9em; }
+.dat-carousel img { height: 380px; object-fit: cover; }
+.dat-carousel .carousel-caption { background: rgba(0, 0, 0, .45); border-radius: 8px; }
+.dat-noimg { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; background: #eee; border-radius: 6px; font-size: .75rem; color: #888; }

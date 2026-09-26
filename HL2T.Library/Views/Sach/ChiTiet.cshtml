@@ -1,0 +1,41 @@
+@model Sach
+@{ ViewData["Title"] = Model.TenSach; }
+<nav class="small text-muted mb-3"><a asp-controller="Home" asp-action="Index">Trang chủ</a> / <a asp-action="Index" asp-route-MaDanhMuc="@Model.MaDanhMuc">@Model.DanhMucSach?.TenDanhMuc</a> / @Model.TenSach</nav>
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4 row g-4">
+        <div class="col-md-3"><partial name="_AnhBia" model="Model" /></div>
+        <div class="col-md-9">
+            <h2 class="fw-bold text-primary">@Model.TenSach</h2>
+            <p class="text-muted">Tác giả: <b>@Model.TacGia</b> · @Model.NhaXuatBan @Model.NamXuatBan</p>
+            @if (Model.SoLuongKhaDung > 0)
+            {
+                <span class="badge text-bg-success fs-6">Còn @Model.SoLuongKhaDung / @Model.TongSoLuong cuốn có thể mượn</span>
+            }
+            else
+            {
+                <span class="badge text-bg-danger fs-6">Sách tạm hết</span>
+            }
+            <table class="table table-sm mt-3" style="max-width:560px">
+                <tr><td class="text-muted">Mã sách</td><td>@("S" + Model.MaSach.ToString("D5"))</td><td class="text-muted">ISBN</td><td>@Model.ISBN</td></tr>
+                <tr><td class="text-muted">Danh mục</td><td>@Model.DanhMucSach?.TenDanhMuc</td><td class="text-muted">Giá bìa</td><td>@Model.GiaBia.ToString("N0")đ</td></tr>
+            </table>
+            @if (!string.IsNullOrEmpty(Model.MoTa))
+            {
+                <h6 class="fw-bold">Giới thiệu</h6>
+                <p class="text-muted">@Model.MoTa</p>
+            }
+            @if (User.IsInRole(VaiTroNames.DocGia))
+            {
+                <form asp-controller="PhieuMuon" asp-action="DangKy" method="post" class="mt-3">
+                    <input type="hidden" name="maSach" value="@Model.MaSach" />
+                    <button class="btn btn-primary" disabled="@(Model.SoLuongKhaDung == 0)"><i class="bi bi-journal-plus"></i> Đăng ký mượn</button>
+                </form>
+                <p class="small text-muted mt-2">* Mỗi độc giả được mượn tối đa 5 cuốn, thời hạn 14 ngày. Phiếu đăng ký sẽ được thủ thư duyệt.</p>
+            }
+            else if (User.Identity?.IsAuthenticated != true)
+            {
+                <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path" class="btn btn-outline-primary mt-3">Đăng nhập để mượn sách</a>
+            }
+        </div>
+    </div>
+</div>

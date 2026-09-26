@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Trang chủ";
+    var danhMucs = (List<HL2T.Library.Controllers.DanhMucThongKe>)ViewBag.DanhMucs;
+    var sachMoi = (List<Sach>)ViewBag.SachMoi;
+    var sachMuonNhieu = (List<Sach>)ViewBag.SachMuonNhieu;
+}
+<div class="hl-hero p-4 p-md-5 mb-4">
+    <h1 class="fw-bold">Chào mừng đến Thư viện HL2T</h1>
+    <p class="lead mb-4">Tra cứu, đăng ký mượn sách trực tuyến và theo dõi phiếu mượn mọi lúc.</p>
+    <form asp-controller="Sach" asp-action="Index" method="get" class="row g-2">
+        <div class="col-md-6"><input name="TuKhoa" class="form-control form-control-lg" placeholder="Nhập tên sách, tác giả hoặc ISBN..." /></div>
+        <div class="col-md-3">
+            <select name="MaDanhMuc" class="form-select form-select-lg">
+                <option value="">Tất cả danh mục</option>
+                @foreach (var d in danhMucs) { <option value="@d.MaDanhMuc">@d.TenDanhMuc</option> }
+            </select>
+        </div>
+        <div class="col-md-2"><button class="btn btn-warning btn-lg w-100 fw-semibold"><i class="bi bi-search"></i> Tìm kiếm</button></div>
+    </form>
+</div>
+
+<h5 class="hl-title">Danh mục nổi bật</h5>
+<div class="d-flex flex-wrap gap-2 mb-4">
+    @foreach (var d in danhMucs)
+    {
+        <a class="badge rounded-pill text-bg-light border p-2 px-3 text-decoration-none" asp-controller="Sach" asp-action="Index" asp-route-MaDanhMuc="@d.MaDanhMuc">@d.TenDanhMuc (@d.SoSach)</a>
+    }
+</div>
+
+<h5 class="hl-title">Sách mới cập nhật</h5>
+<div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3 mb-4">
+    @foreach (var s in sachMoi) { <div class="col"><partial name="_TheSach" model="s" /></div> }
+</div>
+
+<h5 class="hl-title">Được mượn nhiều nhất</h5>
+<div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
+    @foreach (var s in sachMuonNhieu) { <div class="col"><partial name="_TheSach" model="s" /></div> }
+</div>

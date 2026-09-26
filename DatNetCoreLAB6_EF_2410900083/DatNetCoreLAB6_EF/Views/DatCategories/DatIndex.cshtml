@@ -1,0 +1,33 @@
+@model IEnumerable<DatCategory>
+@{
+    ViewData["Title"] = "Danh sách danh mục";
+}
+<h2>Danh sách danh mục</h2>
+<p>
+    <a class="btn btn-sm btn-success" asp-action="DatCreate">Thêm mới danh mục</a>
+</p>
+<table class="table table-hover bg-white align-middle">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Status)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var datItem in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => datItem.Name)</td>
+                <td><partial name="_DatStatusBadge" model="datItem.Status" /></td>
+                <td>@Html.DisplayFor(modelItem => datItem.CreatedDate)</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-primary" asp-action="DatEdit" asp-route-id="@datItem.Id">Edit</a>
+                    <a class="btn btn-sm btn-success" asp-action="DatDetails" asp-route-id="@datItem.Id">Details</a>
+                    <a class="btn btn-sm btn-danger" asp-action="DatDelete" asp-route-id="@datItem.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

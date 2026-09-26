@@ -1,0 +1,22 @@
+@model DatStdClass
+@{
+    ViewData["Title"] = "Chi tiết lớp";
+}
+<h2>Lớp: @Model.ClassName</h2>
+<hr />
+<h5>Danh sách sinh viên (@Model.Students.Count)</h5>
+<table class="table table-sm bg-white">
+    <thead><tr><th>Họ tên</th><th>Email</th><th>Điện thoại</th></tr></thead>
+    <tbody>
+        @foreach (var datStudent in Model.Students)
+        {
+            <tr>
+                <td><a asp-controller="DatStudents" asp-action="DatDetails" asp-route-id="@datStudent.Id">@datStudent.StudentName</a></td>
+                <td>@datStudent.StudentEmail</td>
+                <td>@datStudent.StudentPhone</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-sm btn-primary" asp-action="DatEdit" asp-route-id="@Model.Id">Edit</a>
+<a class="btn btn-sm btn-secondary" asp-action="DatIndex">Back to List</a>

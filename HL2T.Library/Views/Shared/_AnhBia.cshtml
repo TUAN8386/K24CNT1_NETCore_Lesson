@@ -1,0 +1,12 @@
+@model Sach
+@{
+    var mau = new[] { "#1d6fb8", "#b45309", "#15803d", "#7c3aed", "#be123c", "#0e7490" }[Model.MaSach % 6];
+}
+@if (!string.IsNullOrEmpty(Model.AnhBia))
+{
+    <img src="@Model.AnhBia" alt="@Model.TenSach" class="hl-cover" />
+}
+else
+{
+    <div class="hl-cover hl-cover-text" style="background:@mau"><span>@Model.TenSach</span><small>@Model.TacGia</small></div>
+}

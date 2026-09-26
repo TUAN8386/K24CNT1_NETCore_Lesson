@@ -1,0 +1,54 @@
+@model IEnumerable<DatProduct>
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+<h2>Danh sách sản phẩm</h2>
+<p>
+    <a class="btn btn-sm btn-success" asp-action="DatCreate">Thêm mới</a>
+</p>
+<div class="table-responsive">
+<table class="table table-hover bg-white align-middle">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Image)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.SalePrice)</th>
+            <th>@Html.DisplayNameFor(model => model.Status)</th>
+            <th>@Html.DisplayNameFor(model => model.Descriptions)</th>
+            <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+            <th>@Html.DisplayNameFor(model => model.Category)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var datItem in Model)
+        {
+            <tr>
+                <td>@datItem.Name</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(datItem.Image))
+                    {
+                        <img src="/images/products/@datItem.Image" class="dat-thumb" alt="@datItem.Name" />
+                    }
+                    else
+                    {
+                        <div class="dat-noimg">No image</div>
+                    }
+                </td>
+                <td>@datItem.Price.ToString("N0")</td>
+                <td>@datItem.SalePrice.ToString("N0")</td>
+                <td><partial name="_DatStatusBadge" model="datItem.Status" /></td>
+                <td class="small">@(datItem.Descriptions?.Length > 60 ? datItem.Descriptions.Substring(0, 60) + "..." : datItem.Descriptions)</td>
+                <td>@Html.DisplayFor(modelItem => datItem.CreatedDate)</td>
+                <td>@datItem.Category?.Name</td>
+                <td class="text-nowrap">
+                    <a class="btn btn-sm btn-primary" asp-action="DatEdit" asp-route-id="@datItem.Id">Edit</a>
+                    <a class="btn btn-sm btn-success" asp-action="DatDetails" asp-route-id="@datItem.Id">Details</a>
+                    <a class="btn btn-sm btn-danger" asp-action="DatDelete" asp-route-id="@datItem.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

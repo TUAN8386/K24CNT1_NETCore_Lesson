@@ -1,0 +1,43 @@
+@model ThongKeVM
+@{
+    ViewData["Title"] = "Thống kê – Báo cáo";
+    ViewData["Crumb"] = "Hệ thống / Thống kê báo cáo";
+    var tongDm = Math.Max(1, Model.TheoDanhMuc.Sum(x => x.SoLuot));
+}
+<div class="card border-0 shadow-sm mb-3"><div class="card-body">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-3"><label class="form-label fw-semibold">Từ ngày</label><input type="date" name="tuNgay" value="@Model.TuNgay.ToString("yyyy-MM-dd")" class="form-control" /></div>
+        <div class="col-md-3"><label class="form-label fw-semibold">Đến ngày</label><input type="date" name="denNgay" value="@Model.DenNgay.ToString("yyyy-MM-dd")" class="form-control" /></div>
+        <div class="col-md-2"><button class="btn btn-primary w-100">Xem thống kê</button></div>
+        <div class="col-md-4 text-end"><a asp-action="XuatExcel" asp-route-tuNgay="@Model.TuNgay.ToString("yyyy-MM-dd")" asp-route-denNgay="@Model.DenNgay.ToString("yyyy-MM-dd")" class="btn btn-success"><i class="bi bi-file-earmark-excel"></i> Xuất Excel</a></div>
+    </form>
+</div></div>
+<div class="row g-3">
+    <div class="col-lg-5"><div class="card border-0 shadow-sm h-100"><div class="card-body">
+        <h6 class="fw-bold mb-3">Tỷ lệ lượt mượn theo danh mục</h6>
+        @foreach (var (dm, so) in Model.TheoDanhMuc)
+        {
+            var pt = so * 100 / tongDm;
+            <div class="d-flex align-items-center gap-2 mb-2">
+                <div style="width:140px" class="small">@dm</div>
+                <div class="progress flex-grow-1" style="height:18px"><div class="progress-bar" style="width:@pt%"></div></div>
+                <div class="small fw-bold" style="width:40px">@pt%</div>
+            </div>
+        }
+        @if (!Model.TheoDanhMuc.Any()) { <p class="text-muted">Không có dữ liệu.</p> }
+        <h6 class="fw-bold mt-4">Top sách được mượn</h6>
+        <ol class="small">@foreach (var (ten, so) in Model.TopSach) { <li>@ten – <b>@so</b> lượt</li> }</ol>
+    </div></div></div>
+    <div class="col-lg-7"><div class="card border-0 shadow-sm h-100"><div class="card-body">
+        <h6 class="fw-bold mb-3">Tổng hợp theo tháng</h6>
+        <table class="table">
+            <thead class="table-light"><tr><th>Tháng</th><th class="text-end">Lượt mượn</th><th class="text-end">Lượt trả</th><th class="text-end">Phiếu quá hạn</th><th class="text-end">Tiền phạt thu</th></tr></thead>
+            @foreach (var t in Model.TheoThang)
+            {
+                <tr><td>@t.Thang</td><td class="text-end">@t.LuotMuon</td><td class="text-end">@t.LuotTra</td><td class="text-end">@t.PhieuQuaHan</td><td class="text-end">@t.TienPhat.ToString("N0")đ</td></tr>
+            }
+            <tr class="table-light fw-bold"><td>Tổng</td><td class="text-end">@Model.TheoThang.Sum(t => t.LuotMuon)</td><td class="text-end">@Model.TheoThang.Sum(t => t.LuotTra)</td>
+                <td class="text-end">@Model.TheoThang.Sum(t => t.PhieuQuaHan)</td><td class="text-end">@Model.TheoThang.Sum(t => t.TienPhat).ToString("N0")đ</td></tr>
+        </table>
+    </div></div></div>
+</div>
