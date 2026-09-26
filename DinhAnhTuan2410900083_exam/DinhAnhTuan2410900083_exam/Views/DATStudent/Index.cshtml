@@ -1,0 +1,49 @@
+@model IEnumerable<DinhAnhTuan2410900083_exam.Models.DATStudent>
+
+@{
+    ViewData["Title"] = "Danh sách sinh viên";
+}
+
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary fw-bold">DANH SÁCH SINH VIÊN</h2>
+        <a asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Thêm mới Sinh Viên</a>
+    </div>
+
+    <table class="table table-hover table-striped table-bordered shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.DATName)</th>
+                <th>@Html.DisplayNameFor(model => model.DATGender)</th>
+                <th>@Html.DisplayNameFor(model => model.DATBirthDay)</th>
+                <th>@Html.DisplayNameFor(model => model.DATEmail)</th>
+                <th>@Html.DisplayNameFor(model => model.DATPhone)</th>
+                <th>@Html.DisplayNameFor(model => model.DATActive)</th>
+                <th class="text-center">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td class="fw-bold">@Html.DisplayFor(modelItem => item.DATName)</td>
+                    <td>@(item.DATGender == 1 ? "Nam" : "Nữ")</td>
+                    <td>@(item.DATBirthDay.HasValue ? item.DATBirthDay.Value.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@Html.DisplayFor(modelItem => item.DATEmail)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DATPhone)</td>
+                    <td>
+                        @if (item.DATActive) {
+                            <span class="badge bg-success">Đang hoạt động</span>
+                        } else {
+                            <span class="badge bg-secondary">Khóa</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Sửa</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white">Xem</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
