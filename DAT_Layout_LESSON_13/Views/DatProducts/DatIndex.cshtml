@@ -1,0 +1,20 @@
+@model List<DatProduct>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_DatLayoutHome.cshtml";
+}
+
+<h2>Danh mục sản phẩm</h2>
+
+@foreach (var datItem in Model)
+{
+    <div class="dat-product">
+        <img class="dat-image" src="@datItem.DatImage" alt="@datItem.DatName" />
+        <p>@datItem.DatName</p>
+        <p class="dat-price">@datItem.DatPrice.ToString("N0") đ</p>
+        @if (datItem.DatIsHot)
+        {
+            <span class="dat-hot">Bán chạy</span>
+        }
+    </div>
+}

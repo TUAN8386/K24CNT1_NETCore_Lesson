@@ -1,0 +1,16 @@
+@model List<DatProduct>
+@{
+    ViewData["Title"] = "Hots";
+    Layout = "~/Views/Shared/_DatLayoutHome.cshtml";
+}
+
+<h2>Sản phẩm bán chạy</h2>
+
+@foreach (var datItem in Model)
+{
+    <div class="dat-product">
+        <img class="dat-image" src="@datItem.DatImage" alt="@datItem.DatName" />
+        <p>@datItem.DatName <span class="dat-hot">HOT</span></p>
+        <p class="dat-price">@datItem.DatPrice.ToString("N0") đ</p>
+    </div>
+}

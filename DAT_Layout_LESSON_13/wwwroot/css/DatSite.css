@@ -1,0 +1,6 @@
+body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; }
+.dat-default-header { background: #eee; padding: 12px 20px; border-bottom: 1px solid #ccc; }
+.dat-default-header nav { margin-top: 6px; }
+.dat-default-s1 { margin: 16px 20px 0; color: #2e7d32; }
+.dat-default-main { padding: 20px; min-height: 300px; }
+.dat-default-footer { text-align: center; padding: 12px; background: #eee; }

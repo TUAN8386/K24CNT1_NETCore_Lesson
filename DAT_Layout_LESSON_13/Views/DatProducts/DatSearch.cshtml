@@ -1,0 +1,25 @@
+@model List<DatProduct>
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_DatLayoutHome.cshtml";
+}
+
+<h2>Tìm kiếm sản phẩm</h2>
+
+<form method="get" action="/DatProducts/DatSearch" class="dat-search-form">
+    <input type="text" name="datKeyword" value="@ViewBag.DatKeyword" placeholder="Nhập tên sản phẩm..." />
+    <button type="submit">Tìm</button>
+</form>
+
+@if (ViewBag.DatKeyword != null)
+{
+    <p>Tìm thấy <b>@Model.Count</b> sản phẩm cho từ khoá "<b>@ViewBag.DatKeyword</b>"</p>
+    foreach (var datItem in Model)
+    {
+        <div class="dat-product">
+            <img class="dat-image" src="@datItem.DatImage" alt="@datItem.DatName" />
+            <p>@datItem.DatName</p>
+            <p class="dat-price">@datItem.DatPrice.ToString("N0") đ</p>
+        </div>
+    }
+}

@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "Trang chủ";
+    // Không khai báo Layout -> dùng Layout mặc định từ _ViewStart.cshtml
+}
+
+<h1>Nội dung sinh ra tại vị trí RenderBody!</h1>
+<p>View này minh hoạ cấu trúc tệp <b>_DatLayout.cshtml</b> với <code>RenderBody()</code> và <code>RenderSection()</code>.</p>
+<button type="button" onclick="datCheckStatus()">Kiểm tra trạng thái</button>
+
+@section DatS1 {
+    <h2 class="dat-default-s1">Phần đầu trang</h2>
+}
+
+@section DatS2 {
+    <script>
+        function datCheckStatus() {
+            alert('OK');
+        }
+    </script>
+}

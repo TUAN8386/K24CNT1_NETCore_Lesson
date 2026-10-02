@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DAT_Layout_LESSON_13</title>
+    <link rel="stylesheet" href="~/css/DatSite.css" asp-append-version="true" />
+    <!--link css-->
+</head>
+<body>
+    <header class="dat-default-header">
+        <strong>DAT_Layout_LESSON_13</strong> – Layout mặc định (_DatLayout.cshtml)
+        <nav>
+            <a href="/DatHome/DatIndex">Trang chủ</a> |
+            <a href="/DatProducts/DatIndex">Trang Customer</a> |
+            <a href="/Admin/DatDashboard/DatIndex">Trang Admin</a>
+        </nav>
+    </header>
+
+    @* Section S1: phần đầu trang (không bắt buộc) *@
+    @RenderSection("DatS1", required: false)
+
+    <main class="dat-default-main">
+        @* Nội dung của View được sinh ra tại vị trí RenderBody *@
+        @RenderBody()
+    </main>
+
+    <footer class="dat-default-footer">
+        &copy; 2026 – Đinh Anh Tuấn – 2410900083
+    </footer>
+
+    <!--link js-->
+    @* Section S2: script riêng của từng View (không bắt buộc) *@
+    @RenderSection("DatS2", required: false)
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin</title>
+    <link href="~/css/DatLayoutAdmin.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <aside id="dat-sidebar">
+        <div class="dat-brand">DAT ADMIN</div>
+        <ul>
+            <li><a href="/Admin/DatDashboard/DatIndex">📊 Bảng điều khiển</a></li>
+            <li><a href="/Admin/DatProductManage/DatIndex">📦 Quản lý sản phẩm</a></li>
+            <li><a href="/DatProducts/DatIndex">🏠 Về trang Customer</a></li>
+        </ul>
+    </aside>
+
+    <div id="dat-main">
+        <header id="dat-topbar">
+            <span>@ViewData["Title"]</span>
+            <span class="dat-user">Đinh Anh Tuấn – 2410900083</span>
+        </header>
+
+        <section id="dat-admin-content">
+            @RenderBody()
+        </section>
+
+        <footer id="dat-admin-footer">
+            Copyright &copy; 2026 – DAT_Layout_LESSON_13
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="~/js/DatLayoutAdmin.js" asp-append-version="true"></script>
+    @RenderSection("DatScripts", required: false)
+</body>
+</html>

@@ -1,0 +1,28 @@
+@model List<DatProduct>
+@{
+    ViewData["Title"] = "Quản lý sản phẩm";
+}
+
+<table class="dat-table">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Bán chạy</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var datItem in Model)
+        {
+            <tr>
+                <td>@datItem.DatId</td>
+                <td><img class="dat-thumb" src="@datItem.DatImage" alt="@datItem.DatName" /></td>
+                <td>@datItem.DatName</td>
+                <td>@datItem.DatPrice.ToString("N0") đ</td>
+                <td>@(datItem.DatIsHot ? "Có" : "Không")</td>
+            </tr>
+        }
+    </tbody>
+</table>

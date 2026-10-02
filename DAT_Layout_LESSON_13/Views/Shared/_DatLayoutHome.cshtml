@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/DatLayoutHome.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <div id="dat-wrapper">
+        <div id="dat-navbar">
+            <ul>
+                <li><a href="/DatProducts/DatIndex">Danh sách sản phẩm</a></li>
+                <li><a href="/DatProducts/DatSearch">Tìm kiếm sản phẩm</a></li>
+                <li><a href="/DatProducts/DatHots">Danh sách bán chạy</a></li>
+                <li><a href="/DatProducts/DatAbout">Giới thiệu</a></li>
+                <li class="dat-right"><a href="/Admin/DatDashboard/DatIndex">Trang Admin</a></li>
+            </ul>
+        </div>
+
+        <div id="dat-content">
+            @RenderBody()
+        </div>
+
+        <div id="dat-footer">
+            <p>Copyright &copy; 2026 – Đinh Anh Tuấn – 2410900083</p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="~/js/DatLayoutHome.js" asp-append-version="true"></script>
+    @RenderSection("DatScripts", required: false)
+</body>
+</html>

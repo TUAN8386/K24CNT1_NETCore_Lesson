@@ -1,0 +1,32 @@
+/* DatLayoutAdmin.css – CSS cho Layout trang Admin */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f6f9; display: flex; min-height: 100vh; }
+
+#dat-sidebar { width: 230px; background: #1f2937; color: #fff; flex-shrink: 0; }
+#dat-sidebar .dat-brand { padding: 18px; font-size: 20px; font-weight: bold; background: #111827; text-align: center; }
+#dat-sidebar ul { list-style: none; margin: 0; padding: 0; }
+#dat-sidebar ul li a { display: block; padding: 14px 18px; color: #d1d5db; text-decoration: none; }
+#dat-sidebar ul li a:hover,
+#dat-sidebar ul li a.dat-active { background: #2563eb; color: #fff; }
+
+#dat-main { flex: 1; display: flex; flex-direction: column; }
+#dat-topbar { background: #fff; padding: 14px 20px; display: flex; justify-content: space-between; border-bottom: 1px solid #e5e7eb; font-weight: 600; }
+#dat-topbar .dat-user { font-weight: normal; color: #6b7280; }
+#dat-admin-content { flex: 1; padding: 20px; }
+#dat-admin-footer { text-align: center; padding: 10px; color: #6b7280; font-size: 13px; }
+
+.dat-cards { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.dat-card { flex: 1; min-width: 150px; background: #fff; border-radius: 8px; padding: 16px; border-left: 4px solid #2563eb; }
+.dat-card h3 { margin: 0; font-size: 28px; }
+.dat-card p { margin: 4px 0 0; color: #6b7280; }
+
+.dat-table { width: 100%; border-collapse: collapse; background: #fff; }
+.dat-table th, .dat-table td { padding: 10px; border: 1px solid #e5e7eb; text-align: left; }
+.dat-thumb { width: 72px; height: 53px; object-fit: cover; border-radius: 4px; display: block; }
+.dat-table td { vertical-align: middle; }
+.dat-table th { background: #2563eb; color: #fff; }
+
+@media screen and (max-width: 768px) {
+    body { flex-direction: column; }
+    #dat-sidebar { width: 100%; }
+}

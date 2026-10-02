@@ -1,0 +1,96 @@
+/* DatLayoutHome.css – CSS cho Custom Layout _DatLayoutHome.cshtml */
+#dat-wrapper {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: auto;
+    max-width: 1100px;
+    background-color: #FFFFFF;
+    border: 1px solid #dcd9d9;
+}
+
+#dat-navbar {
+    background-color: #303042;
+    min-height: 52px;
+    color: #FFFFFF;
+}
+
+#dat-navbar ul {
+    margin: 0;
+    padding: 0 10px;
+    list-style: none;
+    overflow: hidden;
+}
+
+#dat-navbar ul li {
+    list-style: none;
+    display: inline-block;
+}
+
+#dat-navbar ul li.dat-right {
+    float: right;
+}
+
+#dat-navbar ul li a {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    padding: 16px 14px;
+}
+
+#dat-navbar ul li a:hover {
+    background-color: #FF006e;
+}
+
+/* Link đang được chọn (do DatLayoutHome.js thêm class) */
+#dat-navbar ul li a.dat-active {
+    background-color: #FF006e;
+}
+
+#dat-content {
+    min-height: 400px;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+#dat-content::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.dat-product {
+    width: 46%;
+    background-color: #f1f1f1;
+    border: 1px solid #dcd9d9;
+    border-radius: 6px;
+    overflow: hidden;
+    text-align: center;
+    float: left;
+    margin: 1% 2%;
+    box-sizing: border-box;
+    padding-bottom: 12px;
+}
+
+.dat-product .dat-image { width: 100%; height: 200px; object-fit: cover; display: block; }
+.dat-product p { margin: 8px 0 4px; }
+.dat-product .dat-price { color: #c2185b; font-weight: bold; }
+.dat-hot { display: inline-block; background: #FF006e; color: #fff; padding: 2px 8px; font-size: 12px; }
+
+.dat-search-form input { padding: 8px; width: 260px; }
+.dat-search-form button { padding: 8px 16px; background: #303042; color: #fff; border: 0; cursor: pointer; }
+
+#dat-footer {
+    text-align: center;
+    background-color: #303042;
+    padding: 1px;
+    color: white;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+    .dat-product {
+        width: 96%;
+        float: none;
+        display: inline-block;
+    }
+    #dat-navbar ul li.dat-right { float: none; }
+}
