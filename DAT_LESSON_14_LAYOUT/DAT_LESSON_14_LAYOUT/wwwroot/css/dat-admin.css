@@ -1,0 +1,8 @@
+.dat-brand-logo, .dat-avatar {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 33px; height: 33px; background: #007bff; color: #fff; font-weight: bold;
+}
+.dat-avatar { background: #6c757d; }
+.dat-thumb { width: 60px; height: 45px; object-fit: cover; border-radius: 3px; }
+.dat-preview { max-width: 200px; max-height: 150px; margin-top: 8px; border-radius: 4px; }
+.table td, .table th { vertical-align: middle; }

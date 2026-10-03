@@ -1,0 +1,58 @@
+@* =====================================================================
+   BÀI 1: Layout gốc của template MVC (giữ lại để tìm hiểu cấu trúc)
+   (1) <head>: title + load CSS
+   (2) Navbar: link tới Controller/Action bằng TagHelper
+   (3) partial view
+   (4) @RenderBody(): nơi nội dung view của action được đổ vào (mỗi layout chỉ có 1)
+   (5) Load jQuery / Bootstrap JS
+   (6) @RenderSection(): vùng để view con chèn thêm code (Scripts, Css...)
+   ===================================================================== *@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DAT_LESSON_14_LAYOUT</title>
+    @* (1) Load thư viện CSS *@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Css", required: false)
+</head>
+<body>
+    <header>
+        @* (2) Menu ngang (Navbar) *@
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DAT_LESSON_14_LAYOUT</a>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    @* (3) Partial view *@
+    <partial name="_DatCookieConsentPartial" />
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @* (4) Nội dung của view action *@
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">&copy; 2026 - Đinh Anh Tuấn - DAT_LESSON_14_LAYOUT</div>
+    </footer>
+
+    @* (5) Load thư viện jQuery / Bootstrap *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @* (6) Section Scripts - không bắt buộc *@
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

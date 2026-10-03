@@ -1,0 +1,56 @@
+@model IEnumerable<DatBlog>
+@{
+    ViewData["Title"] = "Danh sách bài viết";
+}
+
+<div class="card">
+    <div class="card-header">
+        <form asp-action="Index" method="get" class="form-inline float-left">
+            <input type="text" name="keyword" value="@ViewBag.Keyword" class="form-control form-control-sm mr-2" placeholder="Tìm theo tên..." />
+            <button type="submit" class="btn btn-sm btn-default"><i class="fas fa-search"></i></button>
+        </form>
+        <a asp-action="Create" class="btn btn-sm btn-primary float-right">
+            <i class="fas fa-plus"></i> Thêm mới
+        </a>
+    </div>
+    <div class="card-body p-0 table-responsive">
+        <table class="table table-bordered table-striped table-hover mb-0">
+            <thead>
+                <tr>
+                    <th style="width:60px">Id</th>
+                    <th style="width:80px">Ảnh</th>
+                    <th>Tên</th>
+                    <th class="text-center">Trạng thái</th>
+                    <th>Ngày tạo</th>
+                    <th style="width:140px" class="text-center">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="6" class="text-center text-muted">Chưa có dữ liệu</td></tr>
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.Image))
+                            {
+                                <img src="@item.Image" class="dat-thumb" alt="" />
+                            }
+                        </td>
+                        <td>@item.Name</td>
+                        <td class="text-center">@if (item.Status == 1) { <span class="badge badge-success">Hiển thị</span> } else { <span class="badge badge-secondary">Ẩn</span> }</td>
+                        <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                        <td class="text-center">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs btn-info" title="Xem"><i class="fas fa-eye"></i></a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs btn-warning" title="Sửa"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-xs btn-danger" title="Xóa"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

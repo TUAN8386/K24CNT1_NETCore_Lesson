@@ -1,0 +1,98 @@
+@{
+    // Bài 2 - Bước 4: cách khai báo layout riêng cho 1 view
+    // (đã đặt mặc định trong _ViewStart nên dòng dưới chỉ để minh họa)
+    ViewData["Title"] = "Trang chủ";
+    Layout = "~/Views/Shared/_DatMain.cshtml";
+
+    var banner = ViewBag.DatBanner as DatBanner;
+    var products = ViewBag.DatProducts as List<DatProduct> ?? new();
+    var blogs = ViewBag.DatBlogs as List<DatBlog> ?? new();
+}
+
+<!-- BEGIN BANNER -->
+<div class="wrapper bgded overlay dat-banner"
+     style="@(string.IsNullOrEmpty(banner?.Image) ? "" : $"background-image:url('{banner!.Image}');")">
+    <div id="pageintro" class="hoc clear">
+        <article>
+            <p>Bài thực hành 14 - Layout</p>
+            <h3 class="heading">@(banner?.Name ?? "Chào mừng đến DAT Shop")</h3>
+            <p>@(banner?.Description ?? "Layout dựng từ HTML template mẫu, nội dung trang chủ được đổ vào @RenderBody().")</p>
+            <footer><a class="btn" href="#products">Xem sản phẩm</a></footer>
+        </article>
+    </div>
+</div>
+<!-- END BANNER -->
+
+<!-- BEGIN MAIN -->
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <section id="products">
+            <div class="sectiontitle">
+                <h6 class="heading">Sản phẩm mới</h6>
+                <p>Dữ liệu lấy từ bảng DatProduct (quản lý ở trang Admin)</p>
+            </div>
+            <ul class="nospace group three">
+                @foreach (var p in products)
+                {
+                    <li>
+                        <article class="card">
+                            <div class="icon">&#9733;</div>
+                            <h6 class="heading">@p.Name</h6>
+                            <p class="price">
+                                @if (p.SalePrice > 0)
+                                {
+                                    <span>@(p.SalePrice.ToString("N0"))đ</span>
+                                    <del>@(p.Price?.ToString("N0"))đ</del>
+                                }
+                                else
+                                {
+                                    <span>@(p.Price?.ToString("N0"))đ</span>
+                                }
+                            </p>
+                            <p>@p.Description</p>
+                            <footer><a class="btn" href="#">Xem thêm</a></footer>
+                        </article>
+                    </li>
+                }
+            </ul>
+        </section>
+
+        <hr class="btmspace-80" />
+
+        <section>
+            <div class="sectiontitle">
+                <h6 class="heading">Tin tức</h6>
+                <p>Dữ liệu lấy từ bảng DatBlog</p>
+            </div>
+            <ul class="nospace group three">
+                @foreach (var b in blogs)
+                {
+                    <li>
+                        <figure>
+                            <a href="#" class="thumb">
+                                @if (!string.IsNullOrEmpty(b.Image))
+                                {
+                                    <img src="@b.Image" alt="@b.Name" />
+                                }
+                            </a>
+                            <figcaption>
+                                <h6 class="heading">@b.Name</h6>
+                                <p>@b.Description</p>
+                                <small>@b.CreatedDate.ToString("dd/MM/yyyy")</small>
+                            </figcaption>
+                        </figure>
+                    </li>
+                }
+            </ul>
+        </section>
+        <div class="clear"></div>
+    </main>
+</div>
+<!-- END MAIN -->
+
+@* Bài 1 - Phần 6: view dùng section Scripts mà layout khai báo bằng RenderSection *@
+@section Scripts {
+    <script>
+        console.log('Áp dụng section Scripts tại view Index của HomeController');
+    </script>
+}

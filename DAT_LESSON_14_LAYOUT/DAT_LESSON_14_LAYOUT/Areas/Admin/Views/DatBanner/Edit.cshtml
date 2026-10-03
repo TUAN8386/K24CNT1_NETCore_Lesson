@@ -1,0 +1,29 @@
+@model DatBanner
+@{
+    ViewData["Title"] = "Sửa banner";
+}
+
+<div class="card card-warning">
+    <div class="card-header"><h3 class="card-title">Sửa banner: @Model.Name</h3></div>
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <div class="card-body">
+            <partial name="_DatForm" model="Model" />
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Cập nhật</button>
+            <a asp-action="Index" class="btn btn-default"><i class="fas fa-arrow-left"></i> Quay lại</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Xem trước ảnh khi chọn file
+        $('#imageFile').on('change', function () {
+            const f = this.files && this.files[0];
+            if (f) { $('#imagePreview').attr('src', URL.createObjectURL(f)).removeClass('d-none'); }
+        });
+    </script>
+}

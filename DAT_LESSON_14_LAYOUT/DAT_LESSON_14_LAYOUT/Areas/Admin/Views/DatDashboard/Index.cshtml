@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    var boxes = new[]
+    {
+        (Count: (int)ViewBag.DatCategoryCount, Label: "Danh mục",  Bg: "bg-info",    Icon: "fas fa-list",      Ctrl: "DatCategory"),
+        (Count: (int)ViewBag.DatProductCount,  Label: "Sản phẩm",  Bg: "bg-success", Icon: "fas fa-box-open",  Ctrl: "DatProduct"),
+        (Count: (int)ViewBag.DatBannerCount,   Label: "Banner",    Bg: "bg-warning", Icon: "fas fa-images",    Ctrl: "DatBanner"),
+        (Count: (int)ViewBag.DatBlogCount,     Label: "Blog",      Bg: "bg-danger",  Icon: "fas fa-newspaper", Ctrl: "DatBlog"),
+    };
+}
+
+<div class="row">
+    @foreach (var b in boxes)
+    {
+        <div class="col-lg-3 col-6">
+            <div class="small-box @b.Bg">
+                <div class="inner">
+                    <h3>@b.Count</h3>
+                    <p>@b.Label</p>
+                </div>
+                <div class="icon"><i class="@b.Icon"></i></div>
+                <a asp-area="Admin" asp-controller="@b.Ctrl" asp-action="Index" class="small-box-footer">
+                    Xem chi tiết <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5>Đây là nội dung trang chủ Admin</h5>
+        <p class="mb-0">Layout <code>_DatAdmin</code> dựng từ AdminLTE 3, chia thành các component DatHeader, DatNavLeft, DatFooter.</p>
+    </div>
+</div>

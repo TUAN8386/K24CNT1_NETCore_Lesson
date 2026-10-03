@@ -1,0 +1,15 @@
+@{
+    // Chỉ view này dùng layout gốc _Layout (ghi đè _ViewStart)
+    ViewData["Title"] = "Layout gốc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>Trang này dùng lại layout gốc <code>_Layout.cshtml</code> để so sánh với layout <code>_DatMain.cshtml</code>.</p>
+<p><a asp-controller="Home" asp-action="Index">Về trang chủ (layout _DatMain)</a></p>
+
+@section Scripts {
+    <script>
+        alert('Áp dụng section Script tại view Privacy của HomeController');
+    </script>
+}

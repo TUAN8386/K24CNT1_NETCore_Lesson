@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Liên hệ";
+}
+
+@section Css {
+    <style>
+        .dat-contact { max-width: 520px; margin: 0 auto; }
+        .dat-contact input, .dat-contact textarea { width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ddd; }
+    </style>
+}
+
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <div class="sectiontitle">
+            <h6 class="heading">Liên hệ</h6>
+            <p>Ví dụ dùng section Css khai báo trong layout</p>
+        </div>
+        <form class="dat-contact" onsubmit="alert('Cảm ơn bạn đã liên hệ!'); return false;">
+            <input type="text" placeholder="Họ tên" required />
+            <input type="email" placeholder="Email" required />
+            <textarea rows="5" placeholder="Nội dung"></textarea>
+            <button class="btn" type="submit">Gửi</button>
+        </form>
+    </main>
+</div>

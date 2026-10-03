@@ -1,0 +1,15 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <h1 style="color:#c0392b">Error.</h1>
+        <h2>Đã có lỗi xảy ra khi xử lý yêu cầu.</h2>
+        @if (Model.ShowRequestId)
+        {
+            <p><strong>Request ID:</strong> <code>@Model.RequestId</code></p>
+        }
+    </main>
+</div>

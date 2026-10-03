@@ -1,0 +1,111 @@
+/* =========================================================
+   dat-layout.css - CSS cho layout người dùng (_DatMain)
+   Mô phỏng cấu trúc template mẫu: topbar, header, menu,
+   banner (pageintro), intro blocks, gallery, footer.
+   Nếu dùng template Bistup tải từ link của lab, copy css/images/js
+   của template vào wwwroot và đổi href thành ~/css/layout.css
+   ========================================================= */
+:root {
+    --dat-primary: #7d9bd1;
+    --dat-dark: #111;
+    --dat-navy: #0a2a4f;
+    --dat-text: #474747;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; color: var(--dat-text); background: #fff; line-height: 1.6; }
+a { color: var(--dat-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; display: block; }
+h1, h2, h3, h4, h5, h6 { margin: 0 0 15px; font-weight: normal; line-height: 1.3; }
+ul { margin: 0; padding: 0; list-style: none; }
+.clear::after { content: ""; display: table; clear: both; }
+.fl_left { float: left; }
+.fl_right { float: right; }
+.nospace { margin: 0; padding: 0; }
+.btmspace-10 { margin-bottom: 10px; }
+.btmspace-80 { margin-bottom: 80px; }
+.center { text-align: center; }
+
+.wrapper { display: block; width: 100%; }
+.hoc { display: block; max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+/* ---- row0: top bar ---- */
+.row0 { background: var(--dat-dark); color: #aaa; font-size: 12px; text-transform: uppercase; }
+#topbar { padding: 10px 20px; }
+#topbar li { display: inline-block; margin-right: 18px; }
+#topbar a { color: #ddd; }
+
+/* ---- row1: header ---- */
+.row1 { background: #fff; border-bottom: 1px solid #eee; }
+#header { padding: 25px 20px; }
+#logo h1 { margin: 0; font-size: 28px; font-variant: small-caps; letter-spacing: 1px; }
+#logo h1 a { color: var(--dat-dark); }
+#logo p { margin: 0; font-size: 12px; }
+.header-info { display: flex; gap: 40px; padding-top: 6px; }
+.header-info strong, .header-info span { display: block; }
+.header-info strong { color: var(--dat-dark); }
+
+/* ---- row2: menu ---- */
+.row2 { background: var(--dat-primary); }
+#mainav li { float: left; }
+#mainav a { display: block; padding: 14px 20px; color: #fff; text-transform: uppercase; font-size: 13px; }
+#mainav a:hover, #mainav .active a { background: rgba(0,0,0,.2); text-decoration: none; }
+
+/* ---- banner (pageintro) ---- */
+.bgded { background-size: cover; background-position: center; }
+.overlay { position: relative; z-index: 1; }
+.overlay::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.55); z-index: -1; }
+.dat-banner { background-image: repeating-linear-gradient(135deg, #222 0 12px, #2b2b2b 12px 24px); }
+#pageintro { padding: 120px 20px; color: #fff; }
+#pageintro article { max-width: 60%; }
+#pageintro p:first-child { text-transform: uppercase; letter-spacing: 3px; }
+#pageintro .heading { font-size: 42px; font-variant: small-caps; }
+.btn { display: inline-block; padding: 8px 18px; background: var(--dat-primary); color: #fff !important; border: none; border-radius: 3px; cursor: pointer; }
+.btn:hover { opacity: .85; text-decoration: none; }
+
+/* ---- main ---- */
+.row3 { padding: 60px 0; }
+.sectiontitle { text-align: center; margin-bottom: 40px; }
+.sectiontitle .heading { font-size: 22px; font-variant: small-caps; color: var(--dat-dark); margin-bottom: 5px; }
+.group { display: grid; gap: 30px; }
+.group.three { grid-template-columns: repeat(3, 1fr); }
+.card { border: 1px solid #e6e6e6; padding: 30px; text-align: center; background: #fff; }
+.card .icon { font-size: 34px; color: var(--dat-primary); margin-bottom: 10px; }
+.card .heading { font-size: 16px; color: var(--dat-dark); }
+.card .price { color: #c0392b; font-weight: bold; }
+.card .price del { color: #999; font-weight: normal; margin-left: 6px; }
+.thumb { aspect-ratio: 4/3; background: repeating-linear-gradient(135deg, #2c2c2c 0 10px, #333 10px 20px); color: #fff; display: flex; align-items: flex-end; padding: 15px; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+figure { margin: 0; }
+figcaption { padding: 12px 0; }
+figcaption .heading { font-size: 15px; color: var(--dat-dark); margin-bottom: 4px; }
+hr.btmspace-80 { border: 0; border-top: 1px solid #eee; margin: 60px 0; }
+
+/* ---- footer ---- */
+.row4 { background: var(--dat-navy); color: #c7d3e3; }
+#footer { padding: 60px 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+#footer .heading { color: #fff; text-transform: uppercase; font-size: 14px; }
+#footer a { color: #c7d3e3; }
+#footer p { margin: 0 0 6px; }
+#footer input { width: 100%; padding: 8px; border: 0; }
+.linklist li { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.1); }
+.row5 { background: #071d38; color: #8fa1b8; font-size: 12px; }
+#copyright { padding: 18px 20px; }
+#copyright p { margin: 0; }
+
+#backtotop { position: fixed; right: 20px; bottom: 20px; width: 40px; height: 40px; line-height: 40px; text-align: center; background: var(--dat-primary); color: #fff; border-radius: 50%; opacity: 0; transition: opacity .3s; }
+#backtotop.visible { opacity: 1; }
+
+.dat-notice { background: #fff8db; padding: 8px 20px; font-size: 13px; text-align: center; }
+.dat-notice button { margin-left: 10px; }
+
+@media (max-width: 768px) {
+    .fl_left, .fl_right { float: none; }
+    .header-info { margin-top: 10px; gap: 20px; }
+    #pageintro article { max-width: 100%; }
+    #pageintro .heading { font-size: 30px; }
+    .group.three, #footer { grid-template-columns: 1fr; }
+    #mainav li { float: none; }
+}

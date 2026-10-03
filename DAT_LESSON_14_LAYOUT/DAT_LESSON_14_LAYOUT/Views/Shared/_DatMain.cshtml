@@ -1,0 +1,115 @@
+@* =====================================================================
+   BÀI 2 + BÀI 3: Layout _DatMain dựng từ HTML template mẫu
+   - Giữ lại HEADER, MENU, FOOTER (thành phần dùng chung)
+   - Phần BANNER + MAIN được thay bằng @RenderBody()
+   - Thêm @RenderSection("Css") và @RenderSection("Scripts")
+   ===================================================================== *@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>@ViewData["Title"] - DAT Shop</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="~/css/dat-layout.css" rel="stylesheet" type="text/css" media="all" asp-append-version="true" />
+    @await RenderSectionAsync("Css", required: false)
+</head>
+<body id="top">
+
+    <!-- BEGIN HEADER -->
+    <div class="wrapper row0">
+        <div id="topbar" class="hoc clear">
+            <ul class="fl_left">
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Liên hệ</a></li>
+                <li><a asp-area="Admin" asp-controller="DatDashboard" asp-action="Index">Quản trị</a></li>
+            </ul>
+            <ul class="fl_right">
+                <li>&#9742; 0978 611 889</li>
+                <li>&#9993; dat@example.com</li>
+            </ul>
+        </div>
+    </div>
+    <div class="wrapper row1">
+        <header id="header" class="hoc clear">
+            <div id="logo" class="fl_left">
+                <h1><a asp-area="" asp-controller="Home" asp-action="Index">DAT Shop</a></h1>
+                <p>Đinh Anh Tuấn - 2410900083</p>
+            </div>
+            <div class="fl_right header-info">
+                <div><strong>Gọi cho chúng tôi</strong><span>+84 978 611 889</span></div>
+                <div><strong>Thứ 2 - Thứ 7</strong><span>08:00 - 18:00</span></div>
+            </div>
+        </header>
+    </div>
+    <!-- END HEADER -->
+
+    <!-- BEGIN MENU -->
+    <div class="wrapper row2">
+        <nav id="mainav" class="hoc clear">
+            <ul class="clear">
+               @{
+    var action = ViewContext.RouteData.Values["action"]?.ToString();
+}
+                <li class="@(action == "Index" ? "active" : "")"><a asp-area="" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                <li class="@(action == "About" ? "active" : "")"><a asp-area="" asp-controller="Home" asp-action="About">Giới thiệu</a></li>
+                <li class="@(action == "Contact" ? "active" : "")"><a asp-area="" asp-controller="Home" asp-action="Contact">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </div>
+    <!-- END MENU -->
+
+    @* BEGIN BANNER + MAIN: đã thay bằng RenderBody *@
+    @RenderBody()
+
+    <!-- BEGIN FOOTER -->
+    <div class="wrapper row4">
+        <footer id="footer" class="hoc clear">
+            <div class="one_quarter first">
+                <h6 class="heading">DAT Shop</h6>
+                <p>Số 1 Đường ABC, Hà Nội</p>
+                <p>+84 978 611 889</p>
+                <p>dat@example.com</p>
+            </div>
+            <div class="one_quarter">
+                <h6 class="heading">Danh mục</h6>
+                <ul class="nospace linklist">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Sản phẩm</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Tin tức</a></li>
+                </ul>
+            </div>
+            <div class="one_quarter">
+                <h6 class="heading">Hỗ trợ</h6>
+                <ul class="nospace linklist">
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Giới thiệu</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class="one_quarter">
+                <h6 class="heading">Đăng ký nhận tin</h6>
+                <form onsubmit="return false;">
+                    <input class="btmspace-10" type="text" placeholder="Họ tên" />
+                    <input class="btmspace-10" type="email" placeholder="Email" />
+                    <button class="btn" type="submit">Đăng ký</button>
+                </form>
+            </div>
+        </footer>
+    </div>
+    <div class="wrapper row5">
+        <div id="copyright" class="hoc clear">
+            <p class="fl_left">Copyright &copy; 2026 - DAT_LESSON_14_LAYOUT</p>
+            <p class="fl_right">Layout dựng từ template mẫu</p>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+
+    <a id="backtotop" href="#top">&#8593;</a>
+
+    <!-- JAVASCRIPTS -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        // back to top
+        $(window).on('scroll', function () { $('#backtotop').toggleClass('visible', $(this).scrollTop() > 300); });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

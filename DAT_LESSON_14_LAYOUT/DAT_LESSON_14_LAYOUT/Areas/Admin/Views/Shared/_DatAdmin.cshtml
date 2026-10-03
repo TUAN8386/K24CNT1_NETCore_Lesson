@@ -1,0 +1,76 @@
+@* =====================================================================
+   Layout trang quản trị dựng từ AdminLTE 3
+   Gợi ý của lab: copy 2 thư mục "dist" và "plugins" của AdminLTE vào wwwroot
+   Layout được chia nhỏ bằng View Component:
+     - DatHeader  : thanh điều hướng trên cùng
+     - DatNavLeft : menu bên trái (Dashboard, Danh mục, Sản phẩm, Banner, Blog)
+     - DatFooter  : chân trang
+   ===================================================================== *@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Admin DAT</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css" />
+    <link rel="stylesheet" href="~/css/dat-admin.css" asp-append-version="true" />
+    @await RenderSectionAsync("Css", required: false)
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        @await Component.InvokeAsync("DatHeader")
+
+        @await Component.InvokeAsync("DatNavLeft")
+
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">@ViewData["Title"]</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="DatDashboard" asp-action="Index">Home</a></li>
+                                <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="content">
+                <div class="container-fluid">
+                    @if (TempData["DatSuccess"] is string ok)
+                    {
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <i class="icon fas fa-check"></i> @ok
+                        </div>
+                    }
+                    @if (TempData["DatError"] is string err)
+                    {
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <i class="icon fas fa-ban"></i> @err
+                        </div>
+                    }
+
+                    @RenderBody()
+                </div>
+            </section>
+        </div>
+
+        @await Component.InvokeAsync("DatFooter")
+    </div>
+
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/dist/js/adminlte.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
